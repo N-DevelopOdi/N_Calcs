@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ru.n_develop.n_calcs.MainActivity">
+    tools:context="ru.n_develop.n_calcs.Activity.MainActivity">
 
     <ImageButton
         android:layout_width="wrap_content"
