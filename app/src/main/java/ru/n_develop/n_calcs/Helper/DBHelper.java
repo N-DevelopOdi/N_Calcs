@@ -21,7 +21,8 @@ public class DBHelper extends SQLiteOpenHelper
 
     // _ нужен для работы с курсорами, это особенность android
     public static final String KEY_ID_CATEGIRY = "_id_category";
-    public static final String KEY_NAME_CATEGORY = "name_category";
+    public static final String KEY_NAME_CATEGORY = "name";
+    public static final String KEY_TITLE_CATEGORY = "title";
     public static final String KEY_IMAGE = "image";
     public static final String KEY_DATE_CREATED = "date_created";
     public static final String KEY_DATE_UPDATED = "date_updated";
@@ -37,20 +38,23 @@ public class DBHelper extends SQLiteOpenHelper
     {
         ContentValues contentValues = new ContentValues();
 
-        String[] categories =  {"Математика", "Физика", "Финансы"};
+        String[] categories_name =  {"Math", "Physics", "Finance"};
+        String[] categories_title =  {"Математика", "Физика", "Финансы"};
 
 
         db.execSQL("CREATE TABLE " + TABLE_CATEGORY +
                 " ( " + KEY_ID_CATEGIRY + " integer primary key," +
                 KEY_NAME_CATEGORY + " text, " +
+                KEY_TITLE_CATEGORY + " text, " +
                 KEY_IMAGE + " text, " +
                 KEY_DATE_CREATED + " text, " +
                 KEY_DATE_UPDATED + " text) "
         );
 
-        for (int i = 0; i < categories.length; i++  )
+        for (int i = 0; i < categories_name.length; i++  )
         {
-            contentValues.put(KEY_NAME_CATEGORY, categories[i]);
+            contentValues.put(KEY_NAME_CATEGORY, categories_name[i]);
+            contentValues.put(KEY_TITLE_CATEGORY, categories_title[i]);
             contentValues.put(KEY_IMAGE, "");
             contentValues.put(KEY_DATE_CREATED, "");
             contentValues.put(KEY_DATE_UPDATED, "");

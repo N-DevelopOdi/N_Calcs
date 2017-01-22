@@ -15,25 +15,19 @@ import ru.n_develop.n_calcs.R;
 public class CalcsCategoriesActivity extends AppCompatActivity
 {
 
-    public int IdCategories;
+    public int idCategories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        Log.e("22", "onCreate");
 
-        IdCategories = getIntent().getExtras().getInt("id_categories");
+        idCategories = getIntent().getExtras().getInt("id_categories");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calcs_categories);
 
         // получаем экземпляр элемента ListView
         final ListView listView = (ListView)findViewById(R.id.listView);
-
-// определяем массив типа String
-//        final String[] catNames = new String[] {
-//                "Площадь треугольника", "Симба"
-//        };
-
 
         final String[] catnames = getResources().getStringArray(R.array.cat_names);
         Log.e("111111111", catnames[0]);
