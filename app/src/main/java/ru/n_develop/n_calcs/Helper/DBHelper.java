@@ -48,6 +48,7 @@ public class DBHelper extends SQLiteOpenHelper
         contentValues.put(KEY_DATE_CREATED, "");
         contentValues.put(KEY_DATE_UPDATED, "");
 
+        db.insert(TABLE_CATEGORY, null, contentValues);
 
         contentValues.put(KEY_NAME_CATEGORY, "Физика");
         contentValues.put(KEY_IMAGE, "");
@@ -60,6 +61,14 @@ public class DBHelper extends SQLiteOpenHelper
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
+    {
+        db.execSQL("drop table if exists " + TABLE_CATEGORY);
+
+        onCreate(db);
+    }
+
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
         db.execSQL("drop table if exists " + TABLE_CATEGORY);
 
