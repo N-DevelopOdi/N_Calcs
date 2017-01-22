@@ -1,0 +1,82 @@
+package ru.n_develop.n_calcs.Helper;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import java.lang.reflect.Array;
+
+/**
+ * Created by dim90 on 18.01.2017.
+ */
+
+public class DBHelper extends SQLiteOpenHelper
+{
+
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "Calc";
+    public static final String TABLE_CATEGORY = "category";
+
+
+    // _ нужен для работы с курсорами, это особенность android
+    public static final String KEY_ID_CATEGIRY = "_id_category";
+    public static final String KEY_NAME_CATEGORY = "name";
+    public static final String KEY_TITLE_CATEGORY = "title";
+    public static final String KEY_IMAGE = "image";
+    public static final String KEY_DATE_CREATED = "date_created";
+    public static final String KEY_DATE_UPDATED = "date_updated";
+
+
+    public DBHelper(Context context)
+    {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db)
+    {
+        ContentValues contentValues = new ContentValues();
+
+        String[] categories_name =  {"Math", "Physics", "Finance"};
+        String[] categories_title =  {"Математика", "Физика", "Финансы"};
+
+
+        db.execSQL("CREATE TABLE " + TABLE_CATEGORY +
+                " ( " + KEY_ID_CATEGIRY + " integer primary key," +
+                KEY_NAME_CATEGORY + " text, " +
+                KEY_TITLE_CATEGORY + " text, " +
+                KEY_IMAGE + " text, " +
+                KEY_DATE_CREATED + " text, " +
+                KEY_DATE_UPDATED + " text) "
+        );
+
+        for (int i = 0; i < categories_name.length; i++  )
+        {
+            contentValues.put(KEY_NAME_CATEGORY, categories_name[i]);
+            contentValues.put(KEY_TITLE_CATEGORY, categories_title[i]);
+            contentValues.put(KEY_IMAGE, "");
+            contentValues.put(KEY_DATE_CREATED, "");
+            contentValues.put(KEY_DATE_UPDATED, "");
+
+            db.insert(TABLE_CATEGORY, null, contentValues);
+        }
+
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
+    {
+        db.execSQL("drop table if exists " + TABLE_CATEGORY);
+
+        onCreate(db);
+    }
+
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion)
+    {
+        db.execSQL("drop table if exists " + TABLE_CATEGORY);
+
+        onCreate(db);
+    }
+}
