@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.lang.reflect.Array;
+
 /**
  * Created by dim90 on 18.01.2017.
  */
@@ -12,7 +14,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper
 {
 
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Calc";
     public static final String TABLE_CATEGORY = "category";
 
@@ -35,6 +37,9 @@ public class DBHelper extends SQLiteOpenHelper
     {
         ContentValues contentValues = new ContentValues();
 
+        String[] categories =  {"Математика", "Физика", "Финансы"};
+
+
         db.execSQL("CREATE TABLE " + TABLE_CATEGORY +
                 " ( " + KEY_ID_CATEGIRY + " integer primary key," +
                 KEY_NAME_CATEGORY + " text, " +
@@ -43,19 +48,15 @@ public class DBHelper extends SQLiteOpenHelper
                 KEY_DATE_UPDATED + " text) "
         );
 
-        contentValues.put(KEY_NAME_CATEGORY, "Математика");
-        contentValues.put(KEY_IMAGE, "");
-        contentValues.put(KEY_DATE_CREATED, "");
-        contentValues.put(KEY_DATE_UPDATED, "");
+        for (int i = 0; i < categories.length; i++  )
+        {
+            contentValues.put(KEY_NAME_CATEGORY, categories[i]);
+            contentValues.put(KEY_IMAGE, "");
+            contentValues.put(KEY_DATE_CREATED, "");
+            contentValues.put(KEY_DATE_UPDATED, "");
 
-        db.insert(TABLE_CATEGORY, null, contentValues);
-
-        contentValues.put(KEY_NAME_CATEGORY, "Физика");
-        contentValues.put(KEY_IMAGE, "");
-        contentValues.put(KEY_DATE_CREATED, "");
-        contentValues.put(KEY_DATE_UPDATED, "");
-
-        db.insert(TABLE_CATEGORY, null, contentValues);
+            db.insert(TABLE_CATEGORY, null, contentValues);
+        }
 
     }
 
