@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import java.util.StringTokenizer;
+
 import ru.n_develop.n_calcs.Helper.DBHelper;
 import ru.n_develop.n_calcs.R;
 
@@ -33,14 +35,14 @@ public class MainActivity extends AppCompatActivity
     public void CategoriesMath(View view)
     {
         Cursor cursor = database.query(DBHelper.TABLE_CATEGORY,
-                new String[] {DBHelper.KEY_ID_CATEGIRY},
+                new String[] {DBHelper.KEY_ID_CATEGORY},
                 "name = ?",
                 new String[] {"Math"},
                 null, null, null);
 
         if (cursor.moveToFirst())
         {
-            int idCategoryCursor = cursor.getColumnIndex(DBHelper.KEY_ID_CATEGIRY);
+            int idCategoryCursor = cursor.getColumnIndex(DBHelper.KEY_ID_CATEGORY);
             idCategory = cursor.getInt(idCategoryCursor);
         }
         else
@@ -51,19 +53,22 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(MainActivity.this, CalcsCategoriesActivity.class);
         intent.putExtra("id_categories", idCategory);
         startActivity(intent);
+
+        String[][] test  = new String[3][];
+        test[0] = {}
     }
 
     public void CategoriesPhysics(View view)
     {
         Cursor cursor = database.query(DBHelper.TABLE_CATEGORY,
-                new String[] {DBHelper.KEY_ID_CATEGIRY},
+                new String[] {DBHelper.KEY_ID_CATEGORY},
                 "name = ?",
                 new String[] {"Physics"},
                 null, null, null);
 
         if (cursor.moveToFirst())
         {
-            int idCategoryCursor = cursor.getColumnIndex(DBHelper.KEY_ID_CATEGIRY);
+            int idCategoryCursor = cursor.getColumnIndex(DBHelper.KEY_ID_CATEGORY);
             idCategory = cursor.getInt(idCategoryCursor);
         }
         else
@@ -79,14 +84,14 @@ public class MainActivity extends AppCompatActivity
     public void CategoriesFinance(View view)
     {
         Cursor cursor = database.query(DBHelper.TABLE_CATEGORY,
-                new String[] {DBHelper.KEY_ID_CATEGIRY},
+                new String[] {DBHelper.KEY_ID_CATEGORY},
                 "name = ?",
                 new String[] {"Finance"},
                 null, null, null);
 
         if (cursor.moveToFirst())
         {
-            int idCategoryCursor = cursor.getColumnIndex(DBHelper.KEY_ID_CATEGIRY);
+            int idCategoryCursor = cursor.getColumnIndex(DBHelper.KEY_ID_CATEGORY);
             idCategory = cursor.getInt(idCategoryCursor);
         }
         else
