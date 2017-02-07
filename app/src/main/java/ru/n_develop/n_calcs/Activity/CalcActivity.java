@@ -1,28 +1,29 @@
 package ru.n_develop.n_calcs.Activity;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Interpolator;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.n_develop.n_calcs.Helper.DBHelper;
 import ru.n_develop.n_calcs.R;
 
-public class CalcsActivity extends AppCompatActivity
+public class CalcActivity extends AppCompatActivity
 {
 
-    public int IdCategories;
+    public String idCalcs;
+
+    DBHelper dbHelper;
+    SQLiteDatabase database;
 
     LinearLayout llt;
     private List<EditText> editTextList = new ArrayList<EditText>();
@@ -32,14 +33,47 @@ public class CalcsActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        Log.e("22", "onCreate");
-
-        IdCategories = getIntent().getExtras().getInt("name_calcs");
+        idCalcs = getIntent().getExtras().getString("id_calcs");
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calcs);
 
 
         llt = (LinearLayout) findViewById(R.id.calcs);
+
+        dbHelper = new DBHelper(this);
+        database = dbHelper.getWritableDatabase();
+
+        Cursor cursor = database.query(DBHelper.TABLE_FORMULS,
+                new String[] {DBHelper.KEY_ID_CALCS_FORMULA, DBHelper.KEY_FORMULA},
+                DBHelper.KEY_ID_CALCS_FORMULA + " = ?",
+                new String[] {idCalcs},
+                null, null, null);
+
+        if (cursor.moveToFirst())
+        {
+            int idIndex = cursor.getColumnIndex(DBHelper.KEY_ID_CALCS_FORMULA);
+            int titleIndex = cursor.getColumnIndex(DBHelper.KEY_FORMULA);
+
+            do
+            {
+                // метод put добавляет с верху массива, поэтому id выше name
+//                map = new HashMap<String, String>();
+//                map.put("1_name", cursor.getString(titleIndex));
+//                map.put("0_id", cursor.getString(idIndex));
+//                myArrList.add(map);
+
+
+                Log.e("mlog", "ID = " + cursor.getInt(idIndex) +
+                        "name = " + cursor.getString(titleIndex));
+            }
+            while (cursor.moveToNext());
+        }
+        else
+        {
+            Log.e("else", "0 rows");
+        }
+
 
         //layout params for every EditText
         LinearLayout.LayoutParams lEditParams = new LinearLayout.LayoutParams(200, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -86,16 +120,5 @@ public class CalcsActivity extends AppCompatActivity
             btn.setOnClickListener(getEditText);
             btn.setText("click!");
             llt.addView(btn);
-
-
-
-
-
-
-
     }
-
-
-
-
 }
