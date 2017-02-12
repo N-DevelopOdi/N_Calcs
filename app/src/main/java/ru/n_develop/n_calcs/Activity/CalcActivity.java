@@ -5,11 +5,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,46 +81,67 @@ public class CalcActivity extends AppCompatActivity
         LinearLayout.LayoutParams lEditParams = new LinearLayout.LayoutParams(200, LinearLayout.LayoutParams.WRAP_CONTENT);
         //layout params for every Button
         LinearLayout.LayoutParams lButtonParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,  LinearLayout.LayoutParams.WRAP_CONTENT);
+        //layout params for every LinearLayout
+        LinearLayout.LayoutParams lLinearParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.WRAP_CONTENT);
+        //layout params for every ImageView
+        LinearLayout.LayoutParams lImageParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,  LinearLayout.LayoutParams.WRAP_CONTENT);
+        lImageParams.gravity = Gravity.CENTER_HORIZONTAL;
+        //layout params for every LinearLayout
+        LinearLayout.LayoutParams lTextParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        getEditText = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int editId = v.getId();
-                EditText a = editTextList.get(0);
-                EditText h = editTextList.get(1);
 
-                int result = Integer.parseInt(a.getText().toString()) * Integer.parseInt(h.getText().toString())  / 2;
-                Log.e("editId", Integer.toString(result));
+        for (int i = 0; i < 1; i++)
+        {
+            LinearLayout linearLayout = new LinearLayout(this);
+            linearLayout.setLayoutParams(lLinearParams);
+            linearLayout.setOrientation(LinearLayout.VERTICAL);
 
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        Integer.toString(result), Toast.LENGTH_SHORT);
-                toast.show();
+            ImageView imageView = new ImageView(this);
+            imageView.setLayoutParams(lImageParams);
+            imageView.setImageResource(R.mipmap.ic_launcher);
+            linearLayout.addView(imageView);
 
-            }
-        };
+            TextView textView = new TextView(this);
+            textView.setLayoutParams(lTextParams);
+            textView.setText("Описание калькулятора");
+            textView.setGravity(Gravity.CENTER);
+            linearLayout.addView(textView);
 
-        for (int i = 0; i < 2; i++) {
             EditText  editTxt = new EditText(this);
             editTxt.setLayoutParams(lEditParams);
             editTxt.setText("0");
             editTextList.add(i, editTxt);
-            llt.addView(editTxt);
+            linearLayout.addView(editTxt);
 
-//            Button btn =  new Button(this);
-//            btn.setLayoutParams(lButtonParams);
-//            btn.setId(i);
-//            btn.setOnClickListener(getEditText);
-//            btn.setText("click!");
-//            llt.addView(btn);
-        }
-
-        Button btn =  new Button(this);
+            Button btn =  new Button(this);
             btn.setLayoutParams(lButtonParams);
             btn.setId(0);
 
 
             btn.setOnClickListener(getEditText);
             btn.setText("click!");
-            llt.addView(btn);
+            linearLayout.addView(btn);
+
+            // добавляем новыей layout на базовый
+            llt.addView(linearLayout);
+        }
+
+        // функция нажатия на кнопку
+//        getEditText = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int editId = v.getId();
+//                EditText a = editTextList.get(0);
+//                EditText h = editTextList.get(1);
+//
+//                int result = Integer.parseInt(a.getText().toString()) * Integer.parseInt(h.getText().toString())  / 2;
+//                Log.e("editId", Integer.toString(result));
+//
+//                Toast toast = Toast.makeText(getApplicationContext(),
+//                        Integer.toString(result), Toast.LENGTH_SHORT);
+//                toast.show();
+//
+//            }
+//        };
     }
 }
