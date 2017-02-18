@@ -55,6 +55,7 @@ public class DBHelper extends SQLiteOpenHelper
      */
     public static final String KEY_FORMULA_ID = "_id_formula";
     public static final String KEY_ID_CALCS_FORMULA = "id_calcs";
+    public static final String KEY_RESULT = "result";
     public static final String KEY_FORMULA = "formula";
 //    public static final String KEY_IMAGE = "image";
 //    public static final String KEY_DATE_CREATED = "date_created";
@@ -160,6 +161,7 @@ public class DBHelper extends SQLiteOpenHelper
         db.execSQL("CREATE TABLE " + TABLE_FORMULS +
                 " ( " + KEY_FORMULA_ID + " integer primary key, " +
                 KEY_ID_CALCS_FORMULA + " integer, " +
+                KEY_RESULT + " text, " +
                 KEY_FORMULA + " text, " +
                 KEY_IMAGE + " text, " +
                 KEY_DATE_CREATED + " text, " +
@@ -169,11 +171,13 @@ public class DBHelper extends SQLiteOpenHelper
         ContentValues contentValuesFormula = new ContentValues();
 
         int[] id_calcs = {1, 1};
-        String[] calcs_formula = {"a^2", "d^2/2"};
+        String[] calcs_result = {"S", "S"};
+        String[] calcs_formula = {"a*a", "d*d/2"};
 
         for (int i = 0; i < calcs_formula.length; i++  )
         {
             contentValuesFormula.put(KEY_ID_CALCS_FORMULA, id_calcs[i]);
+            contentValuesFormula.put(KEY_RESULT, calcs_result[i]);
             contentValuesFormula.put(KEY_FORMULA, calcs_formula[i]);
             contentValuesFormula.put(KEY_IMAGE, "");
             contentValuesFormula.put(KEY_DATE_CREATED, "");

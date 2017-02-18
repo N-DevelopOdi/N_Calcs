@@ -26,27 +26,50 @@
             android:baselineAligned="false"
             android:id="@+id/calcs">
 
-            <!--<LinearLayout-->
-                <!--android:orientation="vertical"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content" android:baselineAligned="false"-->
-                <!--android:background="@color/colorAccent"-->
-                <!--&gt;-->
+            <RelativeLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:baselineAligned="false"
+                android:background="@color/colorAccent"
+                >
 
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"
-                    app:srcCompat="@mipmap/ic_launcher"-->
-                    <!--android:id="@+id/imageView" android:layout_weight="1"-->
-                    <!--android:layout_gravity="center_horizontal"-->
-                <!--/>-->
-                <!--<TextView-->
-                    <!--android:text="hrtyryrty"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content" android:id="@+id/textView"-->
-                    <!--android:gravity="center"-->
-                <!--/>-->
-            <!--</LinearLayout>-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@mipmap/ic_launcher"
+                    android:id="@+id/imageView"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"/>
+                <TextView
+                    android:text="hrtyryrty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView"
+                    android:gravity="center"
+                    android:layout_below="@+id/imageView"
+                    android:layout_alignParentStart="true"/>
+                <TextView
+                    android:text="11111111"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView1"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/textView" />
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:text="3333333"
+                    android:ems="10"
+                    android:layout_below="@+id/textView1"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/editText2"/>
+
+
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

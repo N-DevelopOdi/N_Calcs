@@ -1,5 +1,7 @@
 package ru.n_develop.n_calcs.Activity;
 
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -11,10 +13,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import ru.n_develop.n_calcs.Helper.DBHelper;
 import ru.n_develop.n_calcs.R;
@@ -31,6 +36,8 @@ public class CalcActivity extends AppCompatActivity
     private List<EditText> editTextList = new ArrayList<EditText>();
     View.OnClickListener getEditText;
 
+    private List<String> formuls = new ArrayList<String>();
+    private List<String> result = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,15 +54,17 @@ public class CalcActivity extends AppCompatActivity
         database = dbHelper.getWritableDatabase();
 
         Cursor cursor = database.query(DBHelper.TABLE_FORMULS,
-                new String[] {DBHelper.KEY_ID_CALCS_FORMULA, DBHelper.KEY_FORMULA},
+                new String[] {DBHelper.KEY_ID_CALCS_FORMULA, DBHelper.KEY_RESULT, DBHelper.KEY_FORMULA},
                 DBHelper.KEY_ID_CALCS_FORMULA + " = ?",
                 new String[] {idCalcs},
                 null, null, null);
 
+        int i = 0;
         if (cursor.moveToFirst())
         {
             int idIndex = cursor.getColumnIndex(DBHelper.KEY_ID_CALCS_FORMULA);
-            int titleIndex = cursor.getColumnIndex(DBHelper.KEY_FORMULA);
+            int resultIndex = cursor.getColumnIndex(DBHelper.KEY_RESULT);
+            int formulaIndex = cursor.getColumnIndex(DBHelper.KEY_FORMULA);
 
             do
             {
@@ -65,9 +74,13 @@ public class CalcActivity extends AppCompatActivity
 //                map.put("0_id", cursor.getString(idIndex));
 //                myArrList.add(map);
 
+                result.add(i,cursor.getString(resultIndex));
+                formuls.add(i,cursor.getString(formulaIndex));
+
+
 
                 Log.e("mlog", "ID = " + cursor.getInt(idIndex) +
-                        "name = " + cursor.getString(titleIndex));
+                        "formula = " + cursor.getString(formulaIndex));
             }
             while (cursor.moveToNext());
         }
@@ -77,41 +90,84 @@ public class CalcActivity extends AppCompatActivity
         }
 
 
-        //layout params for every EditText
-        LinearLayout.LayoutParams lEditParams = new LinearLayout.LayoutParams(200, LinearLayout.LayoutParams.WRAP_CONTENT);
-        //layout params for every Button
-        LinearLayout.LayoutParams lButtonParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,  LinearLayout.LayoutParams.WRAP_CONTENT);
-        //layout params for every LinearLayout
-        LinearLayout.LayoutParams lLinearParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.WRAP_CONTENT);
-        //layout params for every ImageView
-        LinearLayout.LayoutParams lImageParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,  LinearLayout.LayoutParams.WRAP_CONTENT);
-        lImageParams.gravity = Gravity.CENTER_HORIZONTAL;
-        //layout params for every LinearLayout
-        LinearLayout.LayoutParams lTextParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.WRAP_CONTENT);
+        Log.e("formuls = ", Integer.toString(formuls.size()));
+
+        // находим ресурсы
+        Resources res = getResources();
+        TypedArray img_ids = res.obtainTypedArray(R.array.img_formula);
+        TypedArray text_about = res.obtainTypedArray(R.array.text_about);
+
+        Log.e("text_about", img_ids.toString());
+        Log.e("text_about", text_about.toString());
 
 
-        for (int i = 0; i < 1; i++)
+        /**
+         * Разбор формул
+         */
+        for (i = 0; i < formuls.size(); i++)
         {
-            LinearLayout linearLayout = new LinearLayout(this);
-            linearLayout.setLayoutParams(lLinearParams);
-            linearLayout.setOrientation(LinearLayout.VERTICAL);
 
+
+            //layout params for every Button
+            RelativeLayout.LayoutParams lButtonParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,  RelativeLayout.LayoutParams.WRAP_CONTENT);
+            //layout params for every LinearLayout
+            RelativeLayout.LayoutParams lRelativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,  RelativeLayout.LayoutParams.WRAP_CONTENT);
+            //layout params for every ImageView
+            RelativeLayout.LayoutParams lImageParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,  RelativeLayout.LayoutParams.WRAP_CONTENT);
+//        lImageParams.gravity = Gravity.CENTER_HORIZONTAL;
+            lImageParams.alignWithParent = true;
+            lImageParams.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
+
+            //layout params for every LinearLayout
+            RelativeLayout.LayoutParams lTextParamsAbout = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.WRAP_CONTENT);
+            lTextParamsAbout.addRule(RelativeLayout.BELOW, img_ids.getIndex(i));
+            Log.e("formula = ", formuls.get(i));
+
+            //layout params for every EditText
+            RelativeLayout.LayoutParams lEditParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            lEditParams.addRule(RelativeLayout.BELOW, text_about.getIndex(i));
+            lEditParams.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
+
+
+
+            List<String> variable = new ArrayList<String>();
+
+            variable = getVariable(formuls.get(i));
+
+            Log.e("new_variable", variable.toString());
+
+
+            RelativeLayout relativeLayout = new RelativeLayout(this);
+            relativeLayout.setLayoutParams(lRelativeParams);
+//            linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+
+
+            // картинка
             ImageView imageView = new ImageView(this);
             imageView.setLayoutParams(lImageParams);
             imageView.setImageResource(R.mipmap.ic_launcher);
-            linearLayout.addView(imageView);
+            imageView.setId(img_ids.getIndex(i));
+            relativeLayout.addView(imageView);
 
+
+            Log.e("img_ids", String.valueOf(imageView.getId()));
+
+            //Описание калькулятора
             TextView textView = new TextView(this);
-            textView.setLayoutParams(lTextParams);
+            textView.setLayoutParams(lTextParamsAbout);
             textView.setText("Описание калькулятора");
             textView.setGravity(Gravity.CENTER);
-            linearLayout.addView(textView);
+            textView.setId(text_about.getIndex(i));
+            relativeLayout.addView(textView);
+
+            Log.e("edit_ids", String.valueOf(textView.getId()));
 
             EditText  editTxt = new EditText(this);
             editTxt.setLayoutParams(lEditParams);
             editTxt.setText("0");
             editTextList.add(i, editTxt);
-            linearLayout.addView(editTxt);
+            relativeLayout.addView(editTxt);
 
             Button btn =  new Button(this);
             btn.setLayoutParams(lButtonParams);
@@ -120,10 +176,10 @@ public class CalcActivity extends AppCompatActivity
 
             btn.setOnClickListener(getEditText);
             btn.setText("click!");
-            linearLayout.addView(btn);
+            relativeLayout.addView(btn);
 
             // добавляем новыей layout на базовый
-            llt.addView(linearLayout);
+            llt.addView(relativeLayout);
         }
 
         // функция нажатия на кнопку
@@ -143,5 +199,29 @@ public class CalcActivity extends AppCompatActivity
 //
 //            }
 //        };
+    }
+
+    private ArrayList<String> getVariable (String formula)
+    {
+        ArrayList<String> varibales = new ArrayList<String>();
+        int j = 0;
+        char[] formula_char = formula.toCharArray();
+
+        for (int i = 0; i<formula_char.length; i++)
+        {
+            switch (formula_char[i])
+            {
+                case 'a' : varibales.add(j, Character.toString(formula_char[i]));
+                case 'b' : varibales.add(j, Character.toString(formula_char[i]));
+                case 'c' : varibales.add(j, Character.toString(formula_char[i]));
+                case 'd' : varibales.add(j, Character.toString(formula_char[i]));
+            }
+        }
+
+        Set<String> set = new HashSet<String>(varibales);
+        varibales.clear();
+        varibales.addAll(set);
+
+        return varibales;
     }
 }
