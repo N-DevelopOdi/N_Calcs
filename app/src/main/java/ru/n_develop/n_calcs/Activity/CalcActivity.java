@@ -1,5 +1,6 @@
 package ru.n_develop.n_calcs.Activity;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.Cursor;
@@ -78,27 +79,38 @@ public class CalcActivity extends AppCompatActivity
                 formuls.add(i,cursor.getString(formulaIndex));
 
 
-
-                Log.e("mlog", "ID = " + cursor.getInt(idIndex) +
-                        "formula = " + cursor.getString(formulaIndex));
+//
+//                Log.e("mlog", "ID = " + cursor.getInt(idIndex) +
+//                        "formula = " + cursor.getString(formulaIndex));
             }
             while (cursor.moveToNext());
         }
         else
         {
-            Log.e("else", "0 rows");
+//            Log.e("else", "0 rows");
         }
 
 
-        Log.e("formuls = ", Integer.toString(formuls.size()));
+//        Log.e("formuls = ", Integer.toString(formuls.size()));
 
         // находим ресурсы
-        Resources res = getResources();
-        TypedArray img_ids = res.obtainTypedArray(R.array.img_formula);
-        TypedArray text_about = res.obtainTypedArray(R.array.text_about);
+//        Resources res = getResources();
+//        TypedArray img_ids = res.obtainTypedArray(R.array.img_formula);
+//        TypedArray text_about = res.obtainTypedArray(R.array.text_about);
+//
+//        Log.e("img_id0 = ", Integer.toString(text_about.getIndex(0)));
 
-        Log.e("text_about", img_ids.toString());
-        Log.e("text_about", text_about.toString());
+
+        int[] img_ids = {1,2,3};
+        int[] text_about_ids = {4,5,6};
+        int[] text_variable_ids = {7,8,9};
+
+//        Log.e("img_ids", img_ids.toString());
+//        Log.e("text_about", text_about.toString());
+
+
+//        String[] ids = getResources().getStringArray(R.array.img_formula);
+//        Log.e("new_img", ids[0]);
 
 
         /**
@@ -106,27 +118,32 @@ public class CalcActivity extends AppCompatActivity
          */
         for (i = 0; i < formuls.size(); i++)
         {
-
-
-            //layout params for every Button
-            RelativeLayout.LayoutParams lButtonParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,  RelativeLayout.LayoutParams.WRAP_CONTENT);
             //layout params for every LinearLayout
             RelativeLayout.LayoutParams lRelativeParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,  RelativeLayout.LayoutParams.WRAP_CONTENT);
+
             //layout params for every ImageView
             RelativeLayout.LayoutParams lImageParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,  RelativeLayout.LayoutParams.WRAP_CONTENT);
-//        lImageParams.gravity = Gravity.CENTER_HORIZONTAL;
             lImageParams.alignWithParent = true;
             lImageParams.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
 
-            //layout params for every LinearLayout
+            //layout params for every TextAbout
             RelativeLayout.LayoutParams lTextParamsAbout = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.WRAP_CONTENT);
-            lTextParamsAbout.addRule(RelativeLayout.BELOW, img_ids.getIndex(i));
-            Log.e("formula = ", formuls.get(i));
+            lTextParamsAbout.addRule(RelativeLayout.BELOW, img_ids[i]);
+
+            //layout params for every TextVariable
+            RelativeLayout.LayoutParams lTextVariableParams = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,  LinearLayout.LayoutParams.WRAP_CONTENT);
+            lTextVariableParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+            lTextVariableParams.addRule(RelativeLayout.ALIGN_PARENT_START, RelativeLayout.TRUE);
+            lTextVariableParams.addRule(RelativeLayout.BELOW, text_about_ids[i]);
+            Log.e("1234567890 = ", Integer.toString(text_about_ids[i]));
 
             //layout params for every EditText
             RelativeLayout.LayoutParams lEditParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            lEditParams.addRule(RelativeLayout.BELOW, text_about.getIndex(i));
+            lEditParams.addRule(RelativeLayout.BELOW, text_about_ids[i]);
+            lEditParams.addRule(RelativeLayout.ALIGN_PARENT_END, text_variable_ids[i]);
             lEditParams.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
+            //layout params for every Button
+//            RelativeLayout.LayoutParams lButtonParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,  RelativeLayout.LayoutParams.WRAP_CONTENT);
 
 
 
@@ -134,49 +151,48 @@ public class CalcActivity extends AppCompatActivity
 
             variable = getVariable(formuls.get(i));
 
-            Log.e("new_variable", variable.toString());
+//            Log.e("new_variable", variable.toString());
 
 
             RelativeLayout relativeLayout = new RelativeLayout(this);
             relativeLayout.setLayoutParams(lRelativeParams);
-//            linearLayout.setOrientation(LinearLayout.VERTICAL);
-
-
 
             // картинка
             ImageView imageView = new ImageView(this);
             imageView.setLayoutParams(lImageParams);
             imageView.setImageResource(R.mipmap.ic_launcher);
-            imageView.setId(img_ids.getIndex(i));
+            imageView.setId(img_ids[i]);
             relativeLayout.addView(imageView);
-
-
-            Log.e("img_ids", String.valueOf(imageView.getId()));
 
             //Описание калькулятора
             TextView textView = new TextView(this);
             textView.setLayoutParams(lTextParamsAbout);
             textView.setText("Описание калькулятора");
             textView.setGravity(Gravity.CENTER);
-            textView.setId(text_about.getIndex(i));
+            textView.setId(text_about_ids[i]);
             relativeLayout.addView(textView);
 
-            Log.e("edit_ids", String.valueOf(textView.getId()));
+            Log.e("text_about_id", String.valueOf(textView.getId()));
+
+            //Переменные нужно в цмикл потом
+            TextView textView_variable = new TextView(this);
+            textView_variable.setLayoutParams(lTextVariableParams);
+            textView_variable.setText("Переменная = ");
+            textView_variable.setId(text_variable_ids[i]);
+            relativeLayout.addView(textView_variable);
 
             EditText  editTxt = new EditText(this);
             editTxt.setLayoutParams(lEditParams);
             editTxt.setText("0");
             editTextList.add(i, editTxt);
             relativeLayout.addView(editTxt);
-
-            Button btn =  new Button(this);
-            btn.setLayoutParams(lButtonParams);
-            btn.setId(0);
-
-
-            btn.setOnClickListener(getEditText);
-            btn.setText("click!");
-            relativeLayout.addView(btn);
+//
+//            Button btn =  new Button(this);
+//            btn.setLayoutParams(lButtonParams);
+//            btn.setId(0);
+//            btn.setOnClickListener(getEditText);
+//            btn.setText("click!");
+//            relativeLayout.addView(btn);
 
             // добавляем новыей layout на базовый
             llt.addView(relativeLayout);
