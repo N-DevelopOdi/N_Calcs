@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="img_formula">
+        <item name="img_formula0" type="id"/>
+        <item name="img_formula1" type="id"/>
+        <item name="img_formula2" type="id"/>
+        <item name="img_formula3" type="id"/>
+        <item name="img_formula4" type="id"/>
+        <item name="img_formula5" type="id"/>
+        <item name="img_formula6" type="id"/>
+    </array>
+
+    <array name="text_about">
+        <item name="text_about1" type="id"/>
+        <item name="text_about2" type="id"/>
+        <item name="text_about3" type="id"/>
+        <item name="text_about4" type="id"/>
+        <item name="text_about5" type="id"/>
+        <item name="text_about6" type="id"/>
+        <item name="text_about7" type="id"/>
+    </array>
+
+</resources>
