@@ -170,9 +170,9 @@ public class DBHelper extends SQLiteOpenHelper
 
         ContentValues contentValuesFormula = new ContentValues();
 
-        int[] id_calcs = {1, 1};
-        String[] calcs_result = {"S", "S"};
-        String[] calcs_formula = {"a*a", "d*d/2"};
+        int[] id_calcs = {1, 1, 1, 2};
+        String[] calcs_result = {"S", "S", "P", "R"};
+        String[] calcs_formula = {"a*a*b", "d*d/2", "c+d*2", "a+b+c/2"};
 
         for (int i = 0; i < calcs_formula.length; i++  )
         {
