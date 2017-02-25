@@ -1,5 +1,6 @@
 package ru.n_develop.n_calcs.Activity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,6 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+
+import org.xmlpull.v1.XmlPullParser;
+
+import java.util.Date;
 
 import ru.n_develop.n_calcs.Helper.DBHelper;
 import ru.n_develop.n_calcs.R;
@@ -79,24 +85,82 @@ public class MainActivity extends AppCompatActivity
 
     public void CategoriesFinance(View view)
     {
-        Cursor cursor = database.query(DBHelper.TABLE_SUBCLASS,
-                new String[] {DBHelper.KEY_ID_SUBCLASS},
-                "name = ?",
-                new String[] {"Finance"},
-                null, null, null);
 
-        if (cursor.moveToFirst())
+        Date date = new Date();
+
+        XmlPullParser parser = getResources().getXml(R.xml.calcs_geometry);
+
+        ContentValues contentValuesCalc = new ContentValues();
+        ContentValues contentValuesFormula = new ContentValues();
+
+        try
         {
-            int idSubClassCursor = cursor.getColumnIndex(DBHelper.KEY_ID_SUBCLASS);
-            idSubclass = cursor.getInt(idSubClassCursor);
+            // продолжаем, пока не достигнем конца документа
+            while (parser.getEventType() != XmlPullParser.END_DOCUMENT)
+            {
+                if (parser.getEventType() == XmlPullParser.START_TAG && parser.getName().equals("calc"))
+                {
+
+                    contentValuesCalc.put(DBHelper.KEY_ID_TYPE_CALCS, parser.getAttributeValue(0));
+                    contentValuesCalc.put(DBHelper.KEY_TITLE_CALCS, parser.getAttributeValue(1));
+                    contentValuesCalc.put(DBHelper.KEY_DATE_CREATED, date.toString());
+                    contentValuesCalc.put(DBHelper.KEY_DATE_UPDATED, date.toString());
+
+                    long id_calc = database.insert(DBHelper.TABLE_CALCS, null, contentValuesCalc);
+
+                    String[] formula = parser.getAttributeValue(3).split("_");
+                    String[] text_about = parser.getAttributeValue(4).split("_");
+
+
+                    Log.e("text_about", Long.toString(text_about.length));
+                    for (int i = 0; i < text_about.length; i++)
+                    {
+                        contentValuesFormula.put(DBHelper.KEY_ID_CALCS_FORMULA, id_calc);
+                        contentValuesFormula.put(DBHelper.KEY_RESULT, parser.getAttributeValue(2));
+                        contentValuesFormula.put(DBHelper.KEY_FORMULA, formula[i]);
+                        contentValuesFormula.put(DBHelper.KEY_IMAGE, "");
+                        contentValuesFormula.put(DBHelper.KEY_DATE_CREATED, date.toString());
+                        contentValuesFormula.put(DBHelper.KEY_DATE_UPDATED, date.toString());
+
+                        database.insert(DBHelper.TABLE_FORMULS, null, contentValuesFormula);
+
+                        Log.e("toString", text_about[i]);
+                    }
+                }
+                parser.next();
+            }
         }
-        else
+        catch (Throwable t)
         {
-            Log.e("else", "0 rows");
+            Toast.makeText(this,
+                    "Ошибка при загрузке XML-документа: " + t.toString(), Toast.LENGTH_LONG)
+                    .show();
         }
 
-        Intent intent = new Intent(MainActivity.this, TypesActivity.class);
-        intent.putExtra("id_subclass", idSubclass);
-        startActivity(intent);
+//        Cursor cursor = database.query(DBHelper.TABLE_SUBCLASS,
+//                new String[] {DBHelper.KEY_ID_SUBCLASS},
+//                "name = ?",
+//                new String[] {"Finance"},
+//                null, null, null);
+//
+//        if (cursor.moveToFirst())
+//        {
+//            int idSubClassCursor = cursor.getColumnIndex(DBHelper.KEY_ID_SUBCLASS);
+//            idSubclass = cursor.getInt(idSubClassCursor);
+//        }
+//        else
+//        {
+//            Log.e("else", "0 rows");
+//        }
+
+//        Intent intent = new Intent(MainActivity.this, TypesActivity.class);
+//        intent.putExtra("id_subclass", idSubclass);
+//        startActivity(intent);
+    }
+
+    public void del(View view)
+    {
+        database.execSQL("DELETE FROM " + DBHelper.TABLE_CALCS);
+        database.execSQL("DELETE FROM " + DBHelper.TABLE_FORMULS);
     }
 }

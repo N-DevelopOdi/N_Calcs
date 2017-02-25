@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--type 1 - Геометрия-->
+<calcs_geometry>
+    <calc
+        type = "1"
+        title = "Площадь треугольника"
+        result = "S"
+        formula = "a*h/2_a*b*sin(α)/2"
+        text_about = "blabla_123321"
+    />
+    <calc
+        type = "1"
+        title = "Площадь прямоугольного треугольника"
+        result = "S"
+        formula = "1/2*a*c"
+        text_about = "blabla"
+    />
+</calcs_geometry>
