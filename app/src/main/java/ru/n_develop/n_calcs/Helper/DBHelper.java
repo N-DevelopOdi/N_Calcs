@@ -140,20 +140,20 @@ public class DBHelper extends SQLiteOpenHelper
                 KEY_DATE_UPDATED + " text) "
         );
 
-        ContentValues contentValuesCalcs = new ContentValues();
-
-        String[] calcs_title = {"Площадь квадрата"};
-        int[] calcs_category = {1};
-
-        for (int i = 0; i < calcs_title.length; i++  )
-        {
-            contentValuesCalcs.put(KEY_ID_TYPE_CALCS, calcs_category[i]);
-            contentValuesCalcs.put(KEY_TITLE_CALCS, calcs_title[i]);
-            contentValuesCalcs.put(KEY_DATE_CREATED, "");
-            contentValuesCalcs.put(KEY_DATE_UPDATED, "");
-
-            db.insert(TABLE_CALCS, null, contentValuesCalcs);
-        }
+//        ContentValues contentValuesCalcs = new ContentValues();
+//
+//        String[] calcs_title = {"Площадь квадрата"};
+//        int[] calcs_category = {1};
+//
+//        for (int i = 0; i < calcs_title.length; i++  )
+//        {
+//            contentValuesCalcs.put(KEY_ID_TYPE_CALCS, calcs_category[i]);
+//            contentValuesCalcs.put(KEY_TITLE_CALCS, calcs_title[i]);
+//            contentValuesCalcs.put(KEY_DATE_CREATED, "");
+//            contentValuesCalcs.put(KEY_DATE_UPDATED, "");
+//
+//            db.insert(TABLE_CALCS, null, contentValuesCalcs);
+//        }
 
         /**
          * Cоздаем таблицу с формулами
@@ -168,23 +168,23 @@ public class DBHelper extends SQLiteOpenHelper
                 KEY_DATE_UPDATED + " text) "
         );
 
-        ContentValues contentValuesFormula = new ContentValues();
-
-        int[] id_calcs = {1, 1, 1, 2};
-        String[] calcs_result = {"S", "S", "P", "R"};
-        String[] calcs_formula = {"a*a*b", "d*d/2", "c+d*2", "a+b+c/2"};
-
-        for (int i = 0; i < calcs_formula.length; i++  )
-        {
-            contentValuesFormula.put(KEY_ID_CALCS_FORMULA, id_calcs[i]);
-            contentValuesFormula.put(KEY_RESULT, calcs_result[i]);
-            contentValuesFormula.put(KEY_FORMULA, calcs_formula[i]);
-            contentValuesFormula.put(KEY_IMAGE, "");
-            contentValuesFormula.put(KEY_DATE_CREATED, "");
-            contentValuesFormula.put(KEY_DATE_UPDATED, "");
-
-            db.insert(TABLE_FORMULS, null, contentValuesFormula);
-        }
+//        ContentValues contentValuesFormula = new ContentValues();
+//
+//        int[] id_calcs = {1, 1, 1, 2};
+//        String[] calcs_result = {"S", "S", "P", "R"};
+//        String[] calcs_formula = {"a*a*b", "d*d/2", "c+d*2", "a+b+c/2"};
+//
+//        for (int i = 0; i < calcs_formula.length; i++  )
+//        {
+//            contentValuesFormula.put(KEY_ID_CALCS_FORMULA, id_calcs[i]);
+//            contentValuesFormula.put(KEY_RESULT, calcs_result[i]);
+//            contentValuesFormula.put(KEY_FORMULA, calcs_formula[i]);
+//            contentValuesFormula.put(KEY_IMAGE, "");
+//            contentValuesFormula.put(KEY_DATE_CREATED, "");
+//            contentValuesFormula.put(KEY_DATE_UPDATED, "");
+//
+//            db.insert(TABLE_FORMULS, null, contentValuesFormula);
+//        }
 
 
     }
