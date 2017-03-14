@@ -112,8 +112,7 @@ public class MainActivity extends AppCompatActivity
                     String[] text_about = parser.getAttributeValue(4).split("_");
 
 
-                    Log.e("text_about", Long.toString(text_about.length));
-                    for (int i = 0; i < text_about.length; i++)
+                    for (int i = 0; i < formula.length; i++)
                     {
                         contentValuesFormula.put(DBHelper.KEY_ID_CALCS_FORMULA, id_calc);
                         contentValuesFormula.put(DBHelper.KEY_RESULT, parser.getAttributeValue(2));
@@ -124,7 +123,6 @@ public class MainActivity extends AppCompatActivity
 
                         database.insert(DBHelper.TABLE_FORMULS, null, contentValuesFormula);
 
-                        Log.e("toString", text_about[i]);
                     }
                 }
                 parser.next();
