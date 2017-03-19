@@ -33,7 +33,6 @@ public class ListCalcsActivity extends AppCompatActivity
     {
 
         idType = getIntent().getExtras().getInt("id_type");
-        Log.e("id_type = ", Integer.toString(idType));
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_calcs);
@@ -65,10 +64,6 @@ public class ListCalcsActivity extends AppCompatActivity
                 map.put("1_name", cursor.getString(titleIndex));
                 map.put("0_id", cursor.getString(idIndex));
                 myArrList.add(map);
-
-
-                Log.e("mlog", "ID = " + cursor.getInt(idIndex) +
-                        "name = " + cursor.getString(titleIndex));
             }
             while (cursor.moveToNext());
         } else

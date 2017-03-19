@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper
 {
 
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Calc";
     public static final String TABLE_SUBCLASS = "subclass";
     public static final String TABLE_TYPE = "type";
@@ -58,6 +58,7 @@ public class DBHelper extends SQLiteOpenHelper
     public static final String KEY_RESULT = "result";
     public static final String KEY_FORMULA = "formula";
 //    public static final String KEY_IMAGE = "image";
+    public static final String KEY_TEXT_ABOUT = "text_about";
 //    public static final String KEY_DATE_CREATED = "date_created";
 //    public static final String KEY_DATE_UPDATED = "date_updated";
 
@@ -164,6 +165,7 @@ public class DBHelper extends SQLiteOpenHelper
                 KEY_RESULT + " text, " +
                 KEY_FORMULA + " text, " +
                 KEY_IMAGE + " text, " +
+                KEY_TEXT_ABOUT + " text, " +
                 KEY_DATE_CREATED + " text, " +
                 KEY_DATE_UPDATED + " text) "
         );

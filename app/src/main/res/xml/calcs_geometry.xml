@@ -5,14 +5,98 @@
         type = "1"
         title = "Площадь треугольника"
         result = "S"
-        formula = "a*h/2_a*b*sin(α)/2"
-        text_about = "blabla_123321"
+        formula = "a*h/2_1/2*a*c_sqrt(3)/4*a*a"
+        text_about = "Через основание и высоту_Площадь прямоугольного треугольника_Площадь равностороннего треугольника"
     />
     <calc
         type = "1"
-        title = "Площадь прямоугольного треугольника"
+        title = "Площадь квадрата"
         result = "S"
-        formula = "1/2*a*c"
+        formula = "d*d/2_a*a"
+        text_about = "blabla"
+    />
+    <calc
+        type = "1"
+        title = "Площадь прямоуголника"
+        result = "S"
+        formula = "a*b"
+        text_about = "blabla"
+    />
+    <calc
+        type = "1"
+        title = "Площадь круга"
+        result = "S"
+        formula = "PI*r*r"
+        text_about = "blabla"
+    />
+    <calc
+        type = "1"
+        title = "Площадь ромба"
+        result = "S"
+        formula = "a*h"
+        text_about = "blabla"
+    />
+    <calc
+        type = "1"
+        title = "Площадь параллелограмма"
+        result = "S"
+        formula = "a*h"
+        text_about = "blabla"
+    />
+    <calc
+        type = "1"
+        title = "Площадь трапеции"
+        result = "S"
+        formula = "(a+b)/2*h_m*h"
+        text_about = "blabla"
+    />
+    <calc
+        type = "1"
+        title = "Площадь эллипса"
+        result = "S"
+        formula = "PI*a*b"
+        text_about = "blabla"
+    />
+    <calc
+        type = "1"
+        title = "Площадь кольца"
+        result = "S"
+        formula = "PI*(R*R-r*r)"
+        text_about = "blabla"
+    />
+    <calc
+        type = "1"
+        title = "Площадь четырехугольника"
+        result = "S"
+        formula = "1/2*d1*d2*sin(α)"
+        text_about = "blabla"
+    />
+    <calc
+        type = "1"
+        title = "Площадь сектора кольца"
+        result = "S"
+        formula = "PI*(α/360)*(R*R-r*r)_α/2*(R*R-r*r)"
+        text_about = "blabla"
+    />
+    <calc
+        type = "1"
+        title = "Площадь сектор круга АДО ПРОВЕРИТЬ ФОРМУЛУ ЧЕТО НЕ ТАК ВРОДЕ"
+        result = "S"
+        formula = "1/2*p*r_PI*r*r*(n/360)"
+        text_about = "blabla"
+    />
+    <calc
+        type = "1"
+        title = "Площадь призмы"
+        result = "S"
+        formula = "2*(a*b+b*c+a*c)"
+        text_about = "blabla"
+    />
+    <calc
+        type = "1"
+        title = "Объем пирамиды"
+        result = "S"
+        formula = "1/3*S*h_1/3*h*a*a"
         text_about = "blabla"
     />
 </calcs_geometry>

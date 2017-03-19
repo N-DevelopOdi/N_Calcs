@@ -64,10 +64,6 @@ public class TypesActivity extends AppCompatActivity
                 map.put("1_name", cursor.getString(titleIndex));
                 map.put("0_id", cursor.getString(idIndex));
                 myArrList.add(map);
-
-
-                Log.e("mlog", "ID = " + cursor.getInt(idIndex) +
-                        "name = " + cursor.getString(titleIndex));
             }
             while (cursor.moveToNext());
         }
