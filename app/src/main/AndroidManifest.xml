@@ -18,27 +18,15 @@
         </activity>
         <!--Активность со списком разделов подкласса-->
         <activity android:name=".Activity.TypesActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <!--Активность со списком калькуляторов раздела-->
         <activity android:name=".Activity.ListCalcsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <!--Активность калькулятора-->
         <activity android:name=".Activity.CalcActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
     </application>
 
