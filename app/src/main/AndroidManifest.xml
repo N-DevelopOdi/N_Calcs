@@ -21,24 +21,23 @@
         </activity>
 
         <!--Активность со списком разделов подкласса-->
-        <activity
-            android:name=".Activity.TypesActivity"
-        >
+        <activity android:name=".Activity.TypesActivity">
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <!--Активность со списком калькуляторов раздела-->
-        <activity
-            android:name=".Activity.ListCalcsActivity">
+        <activity android:name=".Activity.ListCalcsActivity">
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <!--Активность калькулятора-->
-        <activity
-            android:name=".Activity.CalcActivity"
-        android:label="Калькулятор">
+        <activity android:name=".Activity.CalcActivity">
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
     </application>
-
-
 
 </manifest>
