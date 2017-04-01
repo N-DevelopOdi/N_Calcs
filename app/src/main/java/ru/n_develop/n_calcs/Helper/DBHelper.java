@@ -59,6 +59,7 @@ public class DBHelper extends SQLiteOpenHelper
     public static final String KEY_FORMULA = "formula";
 //    public static final String KEY_IMAGE = "image";
     public static final String KEY_TEXT_ABOUT = "text_about";
+    public static final String KEY_COUNT = "count";
 //    public static final String KEY_DATE_CREATED = "date_created";
 //    public static final String KEY_DATE_UPDATED = "date_updated";
 

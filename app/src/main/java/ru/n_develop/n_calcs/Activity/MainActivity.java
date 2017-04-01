@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity
 
                     String[] formula = parser.getAttributeValue(3).split("_");
                     String[] text_about = parser.getAttributeValue(4).split("_");
+                    String[] image = parser.getAttributeValue(5).split("_");
 
 
                     for (int i = 0; i < formula.length; i++)
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity
                         contentValuesFormula.put(DBHelper.KEY_ID_CALCS_FORMULA, id_calc);
                         contentValuesFormula.put(DBHelper.KEY_RESULT, parser.getAttributeValue(2));
                         contentValuesFormula.put(DBHelper.KEY_FORMULA, formula[i]);
-                        contentValuesFormula.put(DBHelper.KEY_IMAGE, "");
+
                         if (text_about.length > i && text_about[i] != null)
                         {
                             contentValuesFormula.put(DBHelper.KEY_TEXT_ABOUT, text_about[i]);
@@ -125,6 +126,15 @@ public class MainActivity extends AppCompatActivity
                         else
                         {
                             contentValuesFormula.put(DBHelper.KEY_TEXT_ABOUT, "Нет описания");
+                        }
+
+                        if (image.length > i && image[i] != null)
+                        {
+                            contentValuesFormula.put(DBHelper.KEY_IMAGE, image[i]);
+                        }
+                        else
+                        {
+                            contentValuesFormula.put(DBHelper.KEY_IMAGE, "");
                         }
                         contentValuesFormula.put(DBHelper.KEY_DATE_CREATED, date.toString());
                         contentValuesFormula.put(DBHelper.KEY_DATE_UPDATED, date.toString());

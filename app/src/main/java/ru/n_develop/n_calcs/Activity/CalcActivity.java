@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -43,6 +45,7 @@ public class CalcActivity extends AppCompatActivity
     private List<String> formuls = new ArrayList<String>();
     private List<String> result = new ArrayList<String>();
     private List<String> text_about = new ArrayList<String>();
+    private List<String> image = new ArrayList<String>();
 
     private List<String> class_formuls = new ArrayList<String>();
 
@@ -61,7 +64,7 @@ public class CalcActivity extends AppCompatActivity
         database = dbHelper.getWritableDatabase();
 
         Cursor cursor = database.query(DBHelper.TABLE_FORMULS,
-                new String[] {DBHelper.KEY_ID_CALCS_FORMULA, DBHelper.KEY_RESULT, DBHelper.KEY_FORMULA, DBHelper.KEY_TEXT_ABOUT},
+                new String[] {DBHelper.KEY_ID_CALCS_FORMULA, DBHelper.KEY_RESULT, DBHelper.KEY_FORMULA, DBHelper.KEY_TEXT_ABOUT, DBHelper.KEY_IMAGE},
                 DBHelper.KEY_ID_CALCS_FORMULA + " = ?",
                 new String[] {idCalcs},
                 null, null, null);
@@ -73,12 +76,14 @@ public class CalcActivity extends AppCompatActivity
             int resultIndex = cursor.getColumnIndex(DBHelper.KEY_RESULT);
             int formulaIndex = cursor.getColumnIndex(DBHelper.KEY_FORMULA);
             int textAboutIndex = cursor.getColumnIndex(DBHelper.KEY_TEXT_ABOUT);
+            int imageIndex = cursor.getColumnIndex(DBHelper.KEY_IMAGE);
 
             do
             {
                 result.add(i,cursor.getString(resultIndex));
                 formuls.add(i,cursor.getString(formulaIndex));
                 text_about.add(i,cursor.getString(textAboutIndex));
+                image.add(i,cursor.getString(imageIndex));
 
                 Log.e("mlog", "ID = " + cursor.getInt(idIndex) +
                         " formula = " + cursor.getString(formulaIndex));
@@ -133,11 +138,15 @@ public class CalcActivity extends AppCompatActivity
             RelativeLayout relativeLayout = new RelativeLayout(this);
             relativeLayout.setLayoutParams(lRelativeParams);
 
+
+
             // картинка
             ImageView imageView = new ImageView(this);
             imageView.setLayoutParams(lImageParams);
-            imageView.setImageResource(R.mipmap.ic_launcher);
             imageView.setId(img_ids[i]);
+
+			String filename = "ploshadtreygolnika1";
+			Picasso.with(this).load(getResources().getIdentifier(image.get(i), "drawable", getPackageName())).into(imageView);
             relativeLayout.addView(imageView);
 
             //Описание калькулятора
@@ -178,11 +187,13 @@ public class CalcActivity extends AppCompatActivity
                     relativeLayout.addView(textView_variable);
 
                     EditText editTxt = new EditText(this);
+                    editTxt.setInputType(InputType.TYPE_CLASS_NUMBER |InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                     editTxt.setLayoutParams(lEditParams);
                     editTxt.setTextSize(18);
                     editTxt.setId(edit_text_variable_ids[i][j]);
-                    editTxt.setPadding(5, 0, 0, 5);
+                    editTxt.setPadding(5, 0, 0, 10);
                     editTxt.setWidth(150);
+
                     map = new HashMap<Integer, EditText>();
                     map.put(j, editTxt);
                     editTextList.add(i, map);
@@ -204,6 +215,7 @@ public class CalcActivity extends AppCompatActivity
                     lEditParams.addRule(RelativeLayout.RIGHT_OF, text_variable_ids[i][j]);
                     lEditParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
                     lEditParams.addRule(RelativeLayout.ALIGN_TOP, text_variable_ids[i][j]);
+//                    lEditParams.addRule(RelativeLayout., text_variable_ids[i][j]);
 
                     TextView textView_variable = new TextView(this);
                     textView_variable.setLayoutParams(lTextVariableParams);
@@ -214,6 +226,7 @@ public class CalcActivity extends AppCompatActivity
                     relativeLayout.addView(textView_variable);
 
                     EditText editTxt = new EditText(this);
+                    editTxt.setInputType(InputType.TYPE_CLASS_NUMBER |InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                     editTxt.setLayoutParams(lEditParams);
                     editTxt.setTextSize(18);
                     editTxt.setId(edit_text_variable_ids[i][j]);
@@ -263,6 +276,7 @@ public class CalcActivity extends AppCompatActivity
 
                                 Collection<EditText> collection = hashMap.values();
                                 EditText[] values = collection.toArray(new EditText[k]);
+                                Log.e("type", Integer.toString(values[k].getInputType()));
 
                                 // Меняем переменные на числа из ввода
                                 formuls1[number_el] = formuls1[number_el].replace(variable_.get(k), values[k].getText());
@@ -290,7 +304,8 @@ public class CalcActivity extends AppCompatActivity
                     lTextResult.setMargins(20,0,0,0);
                     lTextResult.addRule(RelativeLayout.RIGHT_OF, button_ids[i]);
                     lTextResult.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
-                    lTextResult.addRule(RelativeLayout.ALIGN_TOP, button_ids[i]);
+                    lTextResult.addRule(RelativeLayout.ALIGN_BOTTOM, button_ids[i]);
+                    lTextResult.addRule(RelativeLayout.ALIGN_BASELINE, button_ids[i]);
 
                     textResult.setLayoutParams(lTextResult);
                     relativeLayout.addView(textResult);

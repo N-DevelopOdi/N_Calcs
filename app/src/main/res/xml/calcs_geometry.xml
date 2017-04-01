@@ -7,69 +7,79 @@
         result = "S"
         formula = "a*h/2_1/2*a*c_sqrt(3)/4*a*a"
         text_about = "Через основание и высоту_Площадь прямоугольного треугольника_Площадь равностороннего треугольника"
+        image = "ploshadtreygolnika1_ploshadtreygolnika2_ploshadtreygolnika3"
     />
     <calc
         type = "1"
         title = "Площадь квадрата"
         result = "S"
-        formula = "d*d/2_a*a"
-        text_about = "blabla"
+        formula = "a*a_d*d/2"
+        text_about = "Площадь квадрата по стороне_Площадь квадрата по диагонали"
+        image = "ploashadkvadrat1_ploashadkvadrat2"
     />
     <calc
         type = "1"
-        title = "Площадь прямоуголника"
+        title = "Площадь прямоугольника"
         result = "S"
         formula = "a*b"
-        text_about = "blabla"
+        text_about = "a и b – длина сторон"
+        image = "spram"
     />
     <calc
         type = "1"
         title = "Площадь круга"
         result = "S"
         formula = "PI*r*r"
-        text_about = "blabla"
+        text_about = "r - радиус круга"
+        image = "ploshadkryga1"
     />
     <calc
         type = "1"
         title = "Площадь ромба"
         result = "S"
         formula = "a*h"
-        text_about = "blabla"
+        text_about = "a - сторона ромба, b - высота ромба"
+        image = "ploshadromba1"
     />
     <calc
         type = "1"
         title = "Площадь параллелограмма"
         result = "S"
         formula = "a*h"
-        text_about = "blabla"
+        text_about = "a - основание параллелограмма_h - высота параллелограмма"
+        image = "ploshadparalle1"
     />
     <calc
         type = "1"
         title = "Площадь трапеции"
         result = "S"
         formula = "(a+b)/2*h_m*h"
-        text_about = "blabla"
+        text_about = "a - это верхнее основание, b - это нижнее основание, h - высота, проведенная к основанию_m - это средняя линия, h - это высота, проведенная к основанию"
+        image = "ploshadtrapecii1_ploshadtrapecii2"
     />
     <calc
         type = "1"
         title = "Площадь эллипса"
         result = "S"
         formula = "PI*a*b"
-        text_about = "blabla"
+        text_about = "а - обозначает значение большой полуоси, b- является длиной малой полуоси"
+        image = "selips"
     />
     <calc
         type = "1"
-        title = "Площадь кольца"
+        title = "Площадь кольца через радиусы"
         result = "S"
         formula = "PI*(R*R-r*r)"
-        text_about = "blabla"
+        text_about = "R - внешний радиус кольца_r - внутренний радиус кольца"
+        image = "ploshadkolca"
     />
     <calc
         type = "1"
         title = "Площадь четырехугольника"
         result = "S"
-        formula = "1/2*d1*d2*sin(α)"
+        formula = "l/2*d1*d2*sin(α)"
         text_about = "blabla"
+        image = "ploshadchetirexygolnika"
     />
     <calc
         type = "1"
@@ -77,6 +87,7 @@
         result = "S"
         formula = "PI*(α/360)*(R*R-r*r)_α/2*(R*R-r*r)"
         text_about = "blabla"
+        image = "plossekcolc_plossekcolc2"
     />
     <calc
         type = "1"
@@ -84,6 +95,7 @@
         result = "S"
         formula = "1/2*p*r_PI*r*r*(n/360)"
         text_about = "blabla"
+        image = "ploshadksectora1_ploshadksectora2"
     />
     <calc
         type = "1"
@@ -91,6 +103,7 @@
         result = "S"
         formula = "2*(a*b+b*c+a*c)"
         text_about = "blabla"
+        image = "ploshadprizmi"
     />
     <calc
         type = "1"
@@ -98,5 +111,6 @@
         result = "S"
         formula = "1/3*S*h_1/3*h*a*a"
         text_about = "blabla"
+        image = "obempiramidi1_obempiramidi3"
     />
 </calcs_geometry>

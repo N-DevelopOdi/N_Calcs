@@ -2,6 +2,9 @@
 <manifest package="ru.n_develop.n_calcs"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,30 +19,26 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <!--Активность со списком разделов подкласса-->
-        <activity android:name=".Activity.TypesActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+        <!--Активность со списком разделов подкласса-->
+        <activity
+            android:name=".Activity.TypesActivity"
+        >
+
         </activity>
         <!--Активность со списком калькуляторов раздела-->
-        <activity android:name=".Activity.ListCalcsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+        <activity
+            android:name=".Activity.ListCalcsActivity">
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <!--Активность калькулятора-->
-        <activity android:name=".Activity.CalcActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+        <activity
+            android:name=".Activity.CalcActivity"
+        android:label="Калькулятор">
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
     </application>
+
+
 
 </manifest>
