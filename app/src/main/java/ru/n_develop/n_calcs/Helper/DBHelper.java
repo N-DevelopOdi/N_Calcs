@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.Date;
+
 /**
  * Created by dim90 on 18.01.2017.
  */
@@ -12,12 +14,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper
 {
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "Calc";
     public static final String TABLE_SUBCLASS = "subclass";
     public static final String TABLE_TYPE = "type";
     public static final String TABLE_CALCS = "calcs";
     public static final String TABLE_FORMULS = "formuls";
+	public static final String TABLE_IMPORT = "last_import";
 
     /**
      * Таблица подклассов
@@ -59,8 +62,17 @@ public class DBHelper extends SQLiteOpenHelper
     public static final String KEY_FORMULA = "formula";
 //    public static final String KEY_IMAGE = "image";
     public static final String KEY_TEXT_ABOUT = "text_about";
+    public static final String KEY_TEXT_COUNT = "count";
     public static final String KEY_COUNT = "count";
 //    public static final String KEY_DATE_CREATED = "date_created";
+//    public static final String KEY_DATE_UPDATED = "date_updated";
+
+    /**
+     * Таблица с выгрузкой
+     */
+    public static final String KEY_ID_IMPORT = "_id_import";
+    public static final String KEY_IMPORT_NAME = "import_name";
+    public static final String KEY_LAST_IMPORT = "last_import";
 //    public static final String KEY_DATE_UPDATED = "date_updated";
 
 
@@ -167,28 +179,33 @@ public class DBHelper extends SQLiteOpenHelper
                 KEY_FORMULA + " text, " +
                 KEY_IMAGE + " text, " +
                 KEY_TEXT_ABOUT + " text, " +
+                KEY_TEXT_COUNT + " integer DEFAULT 0, " +
                 KEY_DATE_CREATED + " text, " +
                 KEY_DATE_UPDATED + " text) "
         );
 
-//        ContentValues contentValuesFormula = new ContentValues();
-//
-//        int[] id_calcs = {1, 1, 1, 2};
-//        String[] calcs_result = {"S", "S", "P", "R"};
-//        String[] calcs_formula = {"a*a*b", "d*d/2", "c+d*2", "a+b+c/2"};
-//
-//        for (int i = 0; i < calcs_formula.length; i++  )
-//        {
-//            contentValuesFormula.put(KEY_ID_CALCS_FORMULA, id_calcs[i]);
-//            contentValuesFormula.put(KEY_RESULT, calcs_result[i]);
-//            contentValuesFormula.put(KEY_FORMULA, calcs_formula[i]);
-//            contentValuesFormula.put(KEY_IMAGE, "");
-//            contentValuesFormula.put(KEY_DATE_CREATED, "");
-//            contentValuesFormula.put(KEY_DATE_UPDATED, "");
-//
-//            db.insert(TABLE_FORMULS, null, contentValuesFormula);
-//        }
+        /**
+         * Таблица с выгрузкой
+         */
+        db.execSQL("CREATE TABLE " + TABLE_IMPORT +
+                " ( " + KEY_ID_IMPORT + " integer primary key, " +
+                KEY_IMPORT_NAME + " text, " +
+                KEY_LAST_IMPORT + " text, " +
+                KEY_DATE_CREATED + " text, " +
+                KEY_DATE_UPDATED + " text) "
+        );
 
+
+        ContentValues contentValuesLastImport = new ContentValues();
+
+        Date date = new Date();
+
+        contentValuesLastImport.put(KEY_IMPORT_NAME, "statistics");
+        contentValuesLastImport.put(KEY_LAST_IMPORT, date.toString());
+        contentValuesLastImport.put(KEY_DATE_CREATED, date.toString());
+        contentValuesLastImport.put(KEY_DATE_UPDATED, date.toString());
+
+        db.insert(TABLE_IMPORT, null, contentValuesLastImport);
 
     }
 

@@ -42,6 +42,7 @@ public class CalcActivity extends AppCompatActivity
     private List<Map<Integer, EditText>> editTextList = new ArrayList<Map<Integer, EditText>>();
     HashMap<Integer, EditText> map;
 
+    private List<Integer> id_formula = new ArrayList<Integer>();
     private List<String> formuls = new ArrayList<String>();
     private List<String> result = new ArrayList<String>();
     private List<String> text_about = new ArrayList<String>();
@@ -64,7 +65,7 @@ public class CalcActivity extends AppCompatActivity
         database = dbHelper.getWritableDatabase();
 
         Cursor cursor = database.query(DBHelper.TABLE_FORMULS,
-                new String[] {DBHelper.KEY_ID_CALCS_FORMULA, DBHelper.KEY_RESULT, DBHelper.KEY_FORMULA, DBHelper.KEY_TEXT_ABOUT, DBHelper.KEY_IMAGE},
+                new String[] {DBHelper.KEY_FORMULA_ID, DBHelper.KEY_ID_CALCS_FORMULA, DBHelper.KEY_RESULT, DBHelper.KEY_FORMULA, DBHelper.KEY_TEXT_ABOUT, DBHelper.KEY_IMAGE},
                 DBHelper.KEY_ID_CALCS_FORMULA + " = ?",
                 new String[] {idCalcs},
                 null, null, null);
@@ -72,7 +73,7 @@ public class CalcActivity extends AppCompatActivity
         int i = 0;
         if (cursor.moveToFirst())
         {
-            int idIndex = cursor.getColumnIndex(DBHelper.KEY_ID_CALCS_FORMULA);
+            int idIndex = cursor.getColumnIndex(DBHelper.KEY_FORMULA_ID);
             int resultIndex = cursor.getColumnIndex(DBHelper.KEY_RESULT);
             int formulaIndex = cursor.getColumnIndex(DBHelper.KEY_FORMULA);
             int textAboutIndex = cursor.getColumnIndex(DBHelper.KEY_TEXT_ABOUT);
@@ -80,6 +81,8 @@ public class CalcActivity extends AppCompatActivity
 
             do
             {
+
+                id_formula.add(i, cursor.getInt(idIndex));
                 result.add(i,cursor.getString(resultIndex));
                 formuls.add(i,cursor.getString(formulaIndex));
                 text_about.add(i,cursor.getString(textAboutIndex));
@@ -262,7 +265,9 @@ public class CalcActivity extends AppCompatActivity
                             // узнали формула
                             int number_el = findIdInt(button_ids, v.getId());
                             String[] formuls1 = formuls.toArray(new String[formuls.size()]);
-                            Log.e("formuls1", formuls1[number_el]);
+                            Integer[] ids = id_formula.toArray(new Integer[id_formula.size()]);
+                            int id = ids[number_el];
+                            Log.e("formuls1, id", formuls1[number_el] + "  "+ Integer.toString(id));
 
                             // находим переменные
                             List<String> variable_ = new ArrayList<String>();
@@ -293,6 +298,9 @@ public class CalcActivity extends AppCompatActivity
                                 Log.e("error - ", e.toString());
                             }
 
+                            database.execSQL("UPDATE " + DBHelper.TABLE_FORMULS +
+                                    " SET " + DBHelper.KEY_COUNT + " = " + DBHelper.KEY_COUNT + " + 1 " +
+                                    " WHERE " + DBHelper.KEY_FORMULA_ID + " = " +  id );
                         }
                     });
                     btn.setText("Результат");

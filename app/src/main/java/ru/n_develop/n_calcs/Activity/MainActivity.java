@@ -12,15 +12,19 @@ import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 
+import java.net.DatagramSocketImplFactory;
 import java.util.Date;
 
 import ru.n_develop.n_calcs.Helper.DBHelper;
+import ru.n_develop.n_calcs.Module.ExportStatics;
 import ru.n_develop.n_calcs.R;
 
 public class MainActivity extends AppCompatActivity
 {
     DBHelper dbHelper;
     SQLiteDatabase database;
+
+    ExportStatics exportStatics;
 
     int idSubclass;
 
@@ -33,6 +37,40 @@ public class MainActivity extends AppCompatActivity
         dbHelper = new DBHelper(this);
 
         database = dbHelper.getWritableDatabase();
+
+		Cursor cursor = database.query(DBHelper.TABLE_IMPORT,
+				new String[] {DBHelper.KEY_ID_IMPORT, DBHelper.KEY_IMPORT_NAME, DBHelper.KEY_LAST_IMPORT},
+				"import_name = ?",
+				new String[] {"statistics"}, null, null, null);
+
+		Date date = new Date();
+		Log.e("lastDate", Long.toString(date.getTime()));
+
+
+		String lastDate = "";
+		if (cursor.moveToFirst())
+		{
+			int lastDateCursor = cursor.getColumnIndex(DBHelper.KEY_LAST_IMPORT);
+			lastDate = cursor.getString(lastDateCursor);
+			Log.e("lastDate", lastDate);
+		}
+
+        exportStatics = new ExportStatics();
+        exportStatics.start(1);
+
+        try
+        {
+            exportStatics.join();// ждем зовершения потока
+        }catch(InterruptedException ie)
+        {
+            Log.e("pass 0", ie.getMessage());
+        }
+        String name = exportStatics.polu(); // получаем полученное значение из БД
+
+
+        Log.e("vivod", name);// выводим
+
+
 
     }
 

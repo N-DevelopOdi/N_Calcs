@@ -6,7 +6,7 @@
         title = "Площадь треугольника"
         result = "S"
         formula = "a*h/2_1/2*a*c_sqrt(3)/4*a*a"
-        text_about = "Через основание и высоту_Площадь прямоугольного треугольника_Площадь равностороннего треугольника"
+        text_about = "Через основание и высоту, Площадь прямоугольного треугольника, Площадь равностороннего треугольника"
         image = "ploshadtreygolnika1_ploshadtreygolnika2_ploshadtreygolnika3"
     />
     <calc
@@ -14,7 +14,7 @@
         title = "Площадь квадрата"
         result = "S"
         formula = "a*a_d*d/2"
-        text_about = "Площадь квадрата по стороне_Площадь квадрата по диагонали"
+        text_about = "Площадь квадрата по стороне, Площадь квадрата по диагонали"
         image = "ploashadkvadrat1_ploashadkvadrat2"
     />
     <calc
@@ -23,7 +23,7 @@
         result = "S"
         formula = "a*b"
         text_about = "a и b – длина сторон"
-        image = "spram"
+        image = "pryamoygolnik"
     />
     <calc
         type = "1"
@@ -46,7 +46,7 @@
         title = "Площадь параллелограмма"
         result = "S"
         formula = "a*h"
-        text_about = "a - основание параллелограмма_h - высота параллелограмма"
+        text_about = "a - основание параллелограмма, h - высота параллелограмма"
         image = "ploshadparalle1"
     />
     <calc
@@ -54,7 +54,7 @@
         title = "Площадь трапеции"
         result = "S"
         formula = "(a+b)/2*h_m*h"
-        text_about = "a - это верхнее основание, b - это нижнее основание, h - высота, проведенная к основанию_m - это средняя линия, h - это высота, проведенная к основанию"
+        text_about = "a - это верхнее основание, b - это нижнее основание, h - высота, проведенная к основанию, m - это средняя линия, h - это высота, проведенная к основанию"
         image = "ploshadtrapecii1_ploshadtrapecii2"
     />
     <calc
@@ -70,7 +70,7 @@
         title = "Площадь кольца через радиусы"
         result = "S"
         formula = "PI*(R*R-r*r)"
-        text_about = "R - внешний радиус кольца_r - внутренний радиус кольца"
+        text_about = "R - внешний радиус кольца, r - внутренний радиус кольца"
         image = "ploshadkolca"
     />
     <calc
@@ -78,7 +78,7 @@
         title = "Площадь четырехугольника"
         result = "S"
         formula = "l/2*d1*d2*sin(α)"
-        text_about = "blabla"
+        text_about = "d1 это диагональ четырехугольника, d2 - это диагональ четырехугольника, sinα - это синус угла между диагоналями"
         image = "ploshadchetirexygolnika"
     />
     <calc
@@ -86,7 +86,7 @@
         title = "Площадь сектора кольца"
         result = "S"
         formula = "PI*(α/360)*(R*R-r*r)_α/2*(R*R-r*r)"
-        text_about = "blabla"
+        text_about = "n - угол дуги сектора (градусы),r - радиус сектора, a - угол дуги сектора (радианы)"
         image = "plossekcolc_plossekcolc2"
     />
     <calc
@@ -94,7 +94,7 @@
         title = "Площадь сектор круга АДО ПРОВЕРИТЬ ФОРМУЛУ ЧЕТО НЕ ТАК ВРОДЕ"
         result = "S"
         formula = "1/2*p*r_PI*r*r*(n/360)"
-        text_about = "blabla"
+        text_about = "l - длина дуги сектора, r - радиус сектора, n - угол дуги сектора (градусы)"
         image = "ploshadksectora1_ploshadksectora2"
     />
     <calc
@@ -102,7 +102,7 @@
         title = "Площадь призмы"
         result = "S"
         formula = "2*(a*b+b*c+a*c)"
-        text_about = "blabla"
+        text_about = "a - длина стороны основания призмы, b - длина стороны основания призмы, c - длина стороны основания призмы"
         image = "ploshadprizmi"
     />
     <calc
@@ -110,64 +110,64 @@
         title = "Объем пирамиды"
         result = "V"
         formula = "1/3*S*h_1/3*h*a*a"
-        text_about = "blabla"
+        text_about = "S - площадь основания пирамиды, h - высота пирамиды, a - сторона основания, h - высота пирамиды "
+        image = "obempiramidi1_obempiramidi3"
     />
     <calc
         type = "1"
         title = "Объем куба"
         result = "V"
         formula = "a*a*a"
-        text_about = "blabla"
+        text_about = "a - длина ребра"
+        image = "obemkyba1"
     />
     <calc
         type = "1"
         title = "Объем цилиндра"
         result = "V"
         formula = "PI*r*r*h_S*h"
-        text_about = "blabla"
+        text_about = "S – это площадь основания, h – это высота цилиндра, r- это радиус цилиндра"
+        image = "obemcilindr1_obemcilindr2"
     />
     <calc
         type = "1"
         title = "Объем конуса"
         result = "V"
         formula = "1/3*S*h_1/3*PI*r*r*h"
-        text_about = "blabla"
+        text_about = "S - площадь основания конуса, h - высота конуса, r - радиус конуса"
+        image = "obemkonusa"
     />
     <calc
         type = "1"
         title = "Объем шара"
         result = "V"
         formula = "4/3*PI*R*R*R"
-        text_about = "blabla"
+        text_about = "r- радиус шара"
+        image = "obemshara"
     />
     <calc
         type = "1"
         title = "Объем параллелепипеда"
         result = "V"
         formula = "a*b*c"
-        text_about = "blabla"
+        text_about = "a, b, c - длина ребра параллелепипеда, "
+        image = "obempramparalelepipeda1"
     />
     <calc
         type = "1"
         title = "Объем призмы"
         result = "V"
         formula = "S*h"
-        text_about = "blabla"
-    />
-    <calc
-        type = "1"
-        title = "Объем пирамиды"
-        result = "V"
-        formula = "1/3*S*h_1/3*h*a*a"
-        text_about = "blabla"
-        image = "obempiramidi1_obempiramidi3"
+        text_about = "S - площадь основания призмы, h - высота призмы"
+        image = "obemprizmi"
     />
     <calc
         type = "1"
         title = "Объем октаэдра"
         result = "V"
         formula = "a*a*a*sqrt(2)/3"
-        text_about = "blabla"
+        text_about = "a - длина ребра"
+        image = "volume_octahedron"
     />
     <calc
         type = "1"
@@ -175,6 +175,7 @@
         result = "V"
         formula = "(sqrt(2)/12)"
         text_about = "blabla"
+        image = ""
     />
     <calc
         type = "1"
@@ -182,6 +183,7 @@
         result = "V"
         formula = "h/3*(S1+S2+(sqrt(S1*S2)))"
         text_about = "blabla"
+        image = ""
     />
     <calc
         type = "1"
@@ -189,6 +191,7 @@
         result = "V"
         formula = "1/3*PI*h*(r1*r1+r1*r2+r2*r2)"
         text_about = "blabla"
+        image = ""
     />
     <calc
         type = "1"
@@ -196,6 +199,7 @@
         result = "V"
         formula = "1/2*PI*h*(r1*r1+r2*r2+1/3*h*h)"
         text_about = "blabla"
+        image = ""
     />
     <calc
         type = "1"
@@ -203,6 +207,7 @@
         result = "V"
         formula = "2*PI*R*R*h/3"
         text_about = "blabla"
+        image = ""
     />
     <calc
         type = "1"
@@ -210,6 +215,7 @@
         result = "V"
         formula = "(PI*h*h*(3*R-h))/3"
         text_about = "blabla"
+        image = ""
     />
     <calc
         type = "1"
@@ -217,6 +223,7 @@
         result = "P"
         formula = "2*PI*R"
         text_about = "blabla"
+        image = ""
     />
     <calc
         type = "1"
@@ -224,6 +231,7 @@
         result = "P"
         formula = "4*h"
         text_about = "blabla"
+        image = ""
     />
     <calc
         type = "1"
@@ -231,6 +239,7 @@
         result = "P"
         formula = "a*h"
         text_about = "blabla"
+        image = ""
     />
     <calc
         type = "1"
@@ -238,6 +247,7 @@
         result = "(a+b)/2*h_m*h"
         formula = ""
         text_about = "blabla"
+        image = ""
     />
     <calc
         type = "1"
@@ -245,6 +255,7 @@
         result = "P"
         formula = "2*(a+b)"
         text_about = "blabla"
+        image = ""
     />
     <calc
         type = "1"
@@ -252,6 +263,7 @@
         result = "P"
         formula = "4*р"
         text_about = "blabla"
+        image = ""
     />
     <calc
         type = "1"
@@ -259,6 +271,7 @@
         result = "P"
         formula = "2*(a+b)"
         text_about = "blabla"
+        image = ""
     />
     <calc
         type = "1"
@@ -266,6 +279,7 @@
         result = "P"
         formula = "PI*r*n/180"
         text_about = "blabla"
+        image = ""
     />
     <calc
         type = "1"
@@ -273,6 +287,7 @@
         result = "P"
         formula = "a+b+c+d"
         text_about = "blabla"
+        image = ""
     />
     <calc
         type = "1"
@@ -280,6 +295,7 @@
         result = "R"
         formula = "P/2*PI_sqrt(S/PI)"
         text_about = "blabla"
+        image = ""
     />
     <calc
         type = "1"
@@ -287,6 +303,7 @@
         result = "r"
         formula = "(sqrt(8*PI*S+sqrt(2*PI*h))-2*PI*h)/2*PI"
         text_about = "blabla"
+        image = ""
     />
     <calc
         type = "1"
@@ -294,5 +311,6 @@
         result = "r"
         formula = "(3*V/4*PI)*(3*V/4*PI)*(3*V/4*PI)"
         text_about = "blabla"
+        image = ""
     />
 </calcs_geometry>
