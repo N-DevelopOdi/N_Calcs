@@ -1,19 +1,26 @@
 package ru.n_develop.n_calcs.Activity;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 
-import java.net.DatagramSocketImplFactory;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 
 import ru.n_develop.n_calcs.Helper.DBHelper;
 import ru.n_develop.n_calcs.Module.ExportStatics;
@@ -28,6 +35,10 @@ public class MainActivity extends AppCompatActivity
 
     int idSubclass;
 
+    private List<Integer> id_formula = new ArrayList<Integer>();
+    private List<Integer> id_calc = new ArrayList<Integer>();
+    private List<Integer> count = new ArrayList<Integer>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -38,40 +49,39 @@ public class MainActivity extends AppCompatActivity
 
         database = dbHelper.getWritableDatabase();
 
-		Cursor cursor = database.query(DBHelper.TABLE_IMPORT,
-				new String[] {DBHelper.KEY_ID_IMPORT, DBHelper.KEY_IMPORT_NAME, DBHelper.KEY_LAST_IMPORT},
-				"import_name = ?",
-				new String[] {"statistics"}, null, null, null);
-
-		Date date = new Date();
-		Log.e("lastDate", Long.toString(date.getTime()));
-
-
-		String lastDate = "";
-		if (cursor.moveToFirst())
-		{
-			int lastDateCursor = cursor.getColumnIndex(DBHelper.KEY_LAST_IMPORT);
-			lastDate = cursor.getString(lastDateCursor);
-			Log.e("lastDate", lastDate);
-		}
-
-        exportStatics = new ExportStatics();
-        exportStatics.start(1);
-
-        try
+        if (hasConnection(this))
         {
-            exportStatics.join();// ждем зовершения потока
-        }catch(InterruptedException ie)
-        {
-            Log.e("pass 0", ie.getMessage());
+            long lastDate = __getLastExportDate();
+            Date date = new Date();
+            //86400 - день
+            if(date.getTime() / 1000 - lastDate > 86400 )
+            {
+                String jsonData = __getExportData();
+                Log.e("jsonData", jsonData);
+
+                if (!jsonData.equals(""))
+                {
+                    exportStatics = new ExportStatics();
+                    exportStatics.start(jsonData);
+
+                    try
+                    {
+                        exportStatics.join();// ждем зовершения потока
+                    } catch (InterruptedException ie)
+                    {
+                        Log.e("pass 0", ie.getMessage());
+                    }
+                    if (exportStatics.result())
+                    {
+                        database.execSQL("UPDATE " + DBHelper.TABLE_FORMULS +
+                                " SET " + DBHelper.KEY_COUNT + " = 0 " +
+                                " WHERE " + DBHelper.KEY_COUNT + " > 0 ");
+
+                        __setLastExportDate();
+                    }
+                }
+            }
         }
-        String name = exportStatics.polu(); // получаем полученное значение из БД
-
-
-        Log.e("vivod", name);// выводим
-
-
-
     }
 
     public void CategoriesMath(View view)
@@ -126,7 +136,7 @@ public class MainActivity extends AppCompatActivity
 
         Date date = new Date();
 
-        XmlPullParser parser = getResources().getXml(R.xml.calcs_geometry);
+        XmlPullParser parser = getResources().getXml(R.xml.calcs_algebry);
 
         ContentValues contentValuesCalc = new ContentValues();
         ContentValues contentValuesFormula = new ContentValues();
@@ -216,5 +226,121 @@ public class MainActivity extends AppCompatActivity
     {
         database.execSQL("DELETE FROM " + DBHelper.TABLE_CALCS);
         database.execSQL("DELETE FROM " + DBHelper.TABLE_FORMULS);
+    }
+
+    /**
+     * Некоторые особенности
+
+     1) Если смартфон подключен к Wi-Fi, то метод вернет true. Даже если интернет не оплачен или из роутера выдернут шнур, то метод все равно вернет true.
+
+     2) Если смартфон подключен к мобильной сети, но интернет не оплачен, то метод вернет true.
+     * @return
+     */
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    public static boolean hasConnection(final Context context)
+    {
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (wifiInfo != null && wifiInfo.isConnected())
+        {
+            Log.e("wifi", Boolean.toString(wifiInfo.isConnected()));
+            return true;
+        }
+        wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        if (wifiInfo != null && wifiInfo.isConnected())
+        {
+            Log.e("mob", wifiInfo.toString());
+
+            return true;
+        }
+        wifiInfo = cm.getActiveNetworkInfo();
+        if (wifiInfo != null && wifiInfo.isConnected())
+        {
+            Log.e("3`", wifiInfo.toString());
+
+            return true;
+        }
+        return false;
+    }
+
+    private long __getLastExportDate ()
+    {
+        // Получаем время последней выгрузки
+        Cursor cursor = database.query(DBHelper.TABLE_IMPORT,
+                new String[] {DBHelper.KEY_ID_IMPORT, DBHelper.KEY_IMPORT_NAME, DBHelper.KEY_LAST_IMPORT},
+                "import_name = ?",
+                new String[] {"statistics"}, null, null, null);
+
+        Date date = new Date();
+        Log.e("lastDate1", Long.toString(date.getTime()));
+
+
+        Long lastDate = (long) 0;
+        if (cursor.moveToFirst())
+        {
+            int lastDateCursor = cursor.getColumnIndex(DBHelper.KEY_LAST_IMPORT);
+            lastDate = cursor.getLong(lastDateCursor);
+            lastDate = lastDate / 1000;
+        }
+
+        return lastDate;
+    }
+    private void __setLastExportDate ()
+    {
+        Date date = new Date();
+        database.execSQL("UPDATE " + DBHelper.TABLE_IMPORT +
+                " SET " + DBHelper.KEY_LAST_IMPORT + " = " + date.getTime() +
+                " WHERE " + DBHelper.KEY_IMPORT_NAME + " = 'statistics'");
+
+    }
+
+    private String __getExportData()
+    {
+        try
+        {
+            JSONObject resultJson = new JSONObject();
+
+            // Получаем список калькуляторов с счетчиками
+            Cursor cursor = database.query(DBHelper.TABLE_FORMULS,
+                    new String[]{DBHelper.KEY_FORMULA_ID, DBHelper.KEY_ID_CALCS_FORMULA, DBHelper.KEY_COUNT},
+                    DBHelper.KEY_COUNT + " > 0 ",
+                    null, null, null, null);
+
+            if (cursor.moveToFirst())
+            {
+                int idFormulaIndex = cursor.getColumnIndex(DBHelper.KEY_FORMULA_ID);
+                int idCalcsIndex = cursor.getColumnIndex(DBHelper.KEY_ID_CALCS_FORMULA);
+                int CountIndex = cursor.getColumnIndex(DBHelper.KEY_COUNT);
+
+
+                JSONArray jsonArr = new JSONArray();
+                do
+                {
+                    id_formula.add(cursor.getInt(idFormulaIndex));
+                    id_calc.add(cursor.getInt(idCalcsIndex));
+                    count.add(cursor.getInt(CountIndex));
+
+                    JSONObject pnObj = new JSONObject();
+                    pnObj.put("id_calc", cursor.getInt(idFormulaIndex));
+                    pnObj.put("id_formula", cursor.getInt(idCalcsIndex));
+                    pnObj.put("count", cursor.getInt(CountIndex));
+                    jsonArr.put(pnObj);
+                }
+                while (cursor.moveToNext());
+
+                return jsonArr.toString();
+            }
+        }
+        catch (Exception e)
+        {
+            Log.e("Error JSON", "");
+        }
+        return "";
     }
 }

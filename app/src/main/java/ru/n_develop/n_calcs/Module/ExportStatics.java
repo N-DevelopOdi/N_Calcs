@@ -26,19 +26,20 @@ import java.util.ArrayList;
 public class ExportStatics extends Thread
 {
 
-	String price = "Ошибка";
 	InputStream is = null;
-	String result = null;
+	String response = null;
+	Boolean result = false;
+	String success = null;
 	String line = null;
 
-	int TypeZapros;
+	String JsonExport;
 
 	public void run() {
 		// создаем лист для отправки запросов
 		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 
 		// лист с запросом
-		nameValuePairs.add(new BasicNameValuePair("TypeZapros", Integer.toString(TypeZapros)));
+		nameValuePairs.add(new BasicNameValuePair("JsonExport", JsonExport));
 
 		//  подключаемся к php запросу и отправляем в него id
 		try {
@@ -62,32 +63,36 @@ public class ExportStatics extends Thread
 				sb.append(line + "\n");
 			}
 			is.close();
-			result = sb.toString();
-			Log.e("pass 2", "connection success" + result);
+			response = sb.toString();
+			Log.e("pass 2", "connection success" + response);
 		} catch (Exception e) {
 			Log.e("Fail 2", e.toString());
 		}
 
 		// обрабатываем полученный json
 		try {
-			JSONObject json_data = new JSONObject(result);
-			price = (json_data.getString("success"));
-			Log.e("pass 3", price);
+			JSONObject json_data = new JSONObject(response);
+			success = (json_data.getString("success"));
+			if (success.equals("true"))
+			{
+				result = true;
+			}
+			Log.e("pass 3", Boolean.toString(result));
 		} catch (Exception e) {
 			Log.e("Fail 3", e.toString());
 		}
 	}
 
 	// принемаем id при запуске потока
-	public void start(int typeZapros) {
-		TypeZapros = typeZapros;
+	public void start(String jsonExport) {
+		JsonExport = jsonExport;
 
 		this.start();
 	}
 
 	// отправляес полученный результат
-	public String polu ()
+	public Boolean result ()
 	{
-		return price;
+		return result;
 	}
 }

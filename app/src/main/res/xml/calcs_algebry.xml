@@ -4,8 +4,33 @@
     <calc
         type = "2"
         title = "Возведения числа в степень"
-        result = "S"
-        formula = "a*h/2_1/2*a*c_sqrt(3)/4*a*a"
-        text_about = "Через основание и высоту_Площадь прямоугольного треугольника_Площадь равностороннего треугольника"
+        result = "Результат"
+        formula = "a^x"
+        text_about = "Возведения числа a в степень x"
+        image = ""
+    />
+    <calc
+        type = "2"
+        title = "Возведения экспоненты  в степень"
+        result = "Результат"
+        formula = "E^x"
+        text_about = "Возведения экспоненты в степень x"
+        image = ""
+    />
+    <calc
+        type = "2"
+        title = "Проценты"
+        result = "Результат"
+        formula = "x/100*y_x/b*100"
+        text_about = "Сколько составляют x% от y_Сколько % составляет x от y"
+        image = ""
+    />
+    <calc
+        type = "2"
+        title = "Процентное изменение"
+        result = "Результат"
+        formula = "((y-x)/x)×100"
+        text_about = "Сколько составляют x% от y_Сколько % составляет x от y"
+        image = ""
     />
 </calcs_algebry>

@@ -62,7 +62,6 @@ public class DBHelper extends SQLiteOpenHelper
     public static final String KEY_FORMULA = "formula";
 //    public static final String KEY_IMAGE = "image";
     public static final String KEY_TEXT_ABOUT = "text_about";
-    public static final String KEY_TEXT_COUNT = "count";
     public static final String KEY_COUNT = "count";
 //    public static final String KEY_DATE_CREATED = "date_created";
 //    public static final String KEY_DATE_UPDATED = "date_updated";
@@ -179,7 +178,7 @@ public class DBHelper extends SQLiteOpenHelper
                 KEY_FORMULA + " text, " +
                 KEY_IMAGE + " text, " +
                 KEY_TEXT_ABOUT + " text, " +
-                KEY_TEXT_COUNT + " integer DEFAULT 0, " +
+                KEY_COUNT + " integer DEFAULT 0, " +
                 KEY_DATE_CREATED + " text, " +
                 KEY_DATE_UPDATED + " text) "
         );
@@ -201,7 +200,7 @@ public class DBHelper extends SQLiteOpenHelper
         Date date = new Date();
 
         contentValuesLastImport.put(KEY_IMPORT_NAME, "statistics");
-        contentValuesLastImport.put(KEY_LAST_IMPORT, date.toString());
+        contentValuesLastImport.put(KEY_LAST_IMPORT, date.getTime());
         contentValuesLastImport.put(KEY_DATE_CREATED, date.toString());
         contentValuesLastImport.put(KEY_DATE_UPDATED, date.toString());
 
@@ -216,6 +215,8 @@ public class DBHelper extends SQLiteOpenHelper
         db.execSQL("drop table if exists " + TABLE_TYPE);
         db.execSQL("drop table if exists " + TABLE_CALCS);
         db.execSQL("drop table if exists " + TABLE_FORMULS);
+        db.execSQL("drop table if exists " + TABLE_IMPORT);
+
 
         onCreate(db);
     }
@@ -227,6 +228,7 @@ public class DBHelper extends SQLiteOpenHelper
         db.execSQL("drop table if exists " + TABLE_TYPE);
         db.execSQL("drop table if exists " + TABLE_CALCS);
         db.execSQL("drop table if exists " + TABLE_FORMULS);
+        db.execSQL("drop table if exists " + TABLE_IMPORT);
 
         onCreate(db);
     }
