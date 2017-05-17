@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--type 3 - Статистика-->
+<calcs_statistics>
+    <calc
+        type = "3"
+        title = "Комбинаторика"
+        result = "Результат"
+        formula = "fac(n)_fac(n)/fac(n-k)_fac(n)/fac(k)*fac(n-k)"
+        text_about = "Число перестановок_Число размещений_Число сочетаний"
+        image = "Нет Фото_Нет Фото_Нет Фото"
+    />
+    <calc
+        type = "3"
+        title = "Факториал"
+        result = "Результат"
+        formula = "fac(n)"
+        text_about = "Факториал"
+        image = "Нет Фото"
+    />
+</calcs_statistics>

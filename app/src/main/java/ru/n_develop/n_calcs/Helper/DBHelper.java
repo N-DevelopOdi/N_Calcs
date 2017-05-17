@@ -14,7 +14,7 @@ import java.util.Date;
 public class DBHelper extends SQLiteOpenHelper
 {
 
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Calc";
     public static final String TABLE_SUBCLASS = "subclass";
     public static final String TABLE_TYPE = "type";
@@ -117,9 +117,9 @@ public class DBHelper extends SQLiteOpenHelper
          */
         ContentValues contentValuesType = new ContentValues();
 
-        Integer[] subclass_id =  {1,1};
-        String[] type_name =  {"Geometry", "Algebra"};
-        String[] type_title =  {"Геометрия", "Алгебра"};
+        Integer[] subclass_id =  {1,1,1,3,2};
+        String[] type_name =  {"Geometry", "Algebra", "Statistics", "CreditDeposit", "Mechanics"};
+        String[] type_title =  {"Геометрия", "Алгебра", "Статистика", "Кредитные и депозитные калькуляторы", "Механика"};
 
         db.execSQL("CREATE TABLE " + TABLE_TYPE +
                 " ( " + KEY_ID_TYPE + " integer primary key, " +

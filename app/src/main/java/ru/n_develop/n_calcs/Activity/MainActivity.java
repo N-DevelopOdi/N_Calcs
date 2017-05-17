@@ -134,9 +134,32 @@ public class MainActivity extends AppCompatActivity
     public void CategoriesFinance(View view)
     {
 
+        Cursor cursor = database.query(DBHelper.TABLE_SUBCLASS,
+                new String[] {DBHelper.KEY_ID_SUBCLASS},
+                "name = ?",
+                new String[] {"Finance"},
+                null, null, null);
+
+        if (cursor.moveToFirst())
+        {
+            int idSubClassCursor = cursor.getColumnIndex(DBHelper.KEY_ID_SUBCLASS);
+            idSubclass = cursor.getInt(idSubClassCursor);
+        }
+        else
+        {
+            Log.e("else", "0 rows");
+        }
+
+        Intent intent = new Intent(MainActivity.this, TypesActivity.class);
+        intent.putExtra("id_subclass", idSubclass);
+        startActivity(intent);
+    }
+
+    public void createDB (View view)
+    {
         Date date = new Date();
 
-        XmlPullParser parser = getResources().getXml(R.xml.calcs_algebry);
+        XmlPullParser parser = getResources().getXml(R.xml.calcs_mechanics);
 
         ContentValues contentValuesCalc = new ContentValues();
         ContentValues contentValuesFormula = new ContentValues();
@@ -200,26 +223,6 @@ public class MainActivity extends AppCompatActivity
                     "Ошибка при загрузке XML-документа: " + t.toString(), Toast.LENGTH_LONG)
                     .show();
         }
-
-//        Cursor cursor = database.query(DBHelper.TABLE_SUBCLASS,
-//                new String[] {DBHelper.KEY_ID_SUBCLASS},
-//                "name = ?",
-//                new String[] {"Finance"},
-//                null, null, null);
-//
-//        if (cursor.moveToFirst())
-//        {
-//            int idSubClassCursor = cursor.getColumnIndex(DBHelper.KEY_ID_SUBCLASS);
-//            idSubclass = cursor.getInt(idSubClassCursor);
-//        }
-//        else
-//        {
-//            Log.e("else", "0 rows");
-//        }
-
-//        Intent intent = new Intent(MainActivity.this, TypesActivity.class);
-//        intent.putExtra("id_subclass", idSubclass);
-//        startActivity(intent);
     }
 
     public void del(View view)

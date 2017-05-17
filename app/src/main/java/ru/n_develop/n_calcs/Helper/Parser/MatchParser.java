@@ -2,6 +2,8 @@ package ru.n_develop.n_calcs.Helper.Parser;
 
 import android.util.Log;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.HashMap;
 
 /**
@@ -24,10 +26,13 @@ public class MatchParser
 
 	public Double getVariable(String variableName)
 	{
-		Log.e("searc variable", variableName);
 		if (variableName.equals("PI"))
 		{
 			return Math.PI;
+		}
+		else if (variableName.equals("E"))
+		{
+			return Math.E;
 		}
 		else if (!variables.containsKey(variableName))
 		{
@@ -125,6 +130,8 @@ public class MatchParser
 	{
 		Result current = Bracket(s);
 
+
+		Log.e("MulDiv", Double.toString(current.acc));
 		double acc = current.acc;
 		while (true)
 		{
@@ -133,12 +140,21 @@ public class MatchParser
 				return current;
 			}
 			char sign = current.rest.charAt(0);
-			if ((sign != '*' && sign != '/')) return current;
+			Log.e("MulDiv", "sign" + sign);
+			if ((sign != '*' && sign != '/' && sign != '^' && sign != '!')) return current;
 
 			String next = current.rest.substring(1);
 			Result right = Bracket(next);
 
-			if (sign == '*')
+			Log.e("MulDiv", "next" + next);
+			Log.e("MulDiv", "right" + right.rest);
+
+			if (sign == '^')
+			{
+				acc = Math.pow(acc, right.acc);
+
+			}
+			else if (sign == '*')
 			{
 				acc *= right.acc;
 			}
@@ -146,7 +162,6 @@ public class MatchParser
 			{
 				acc /= right.acc;
 			}
-
 			current = new Result(acc, right.rest);
 		}
 	}
@@ -203,10 +218,28 @@ public class MatchParser
 		{
 			return new Result(Math.sqrt(r.acc), r.rest);
 		}
+		else if (func.equals("fac"))
+		{
+			return new Result(factorial((int)r.acc), r.rest);
+		}
 		else
 		{
 			System.err.println("function '" + func + "' is not defined");
 		}
 		return r;
+	}
+
+	static HashMap<Integer,Double> cache = new HashMap<Integer,Double>();
+
+	public static Double factorial(int n)
+	{
+		Double ret;
+
+		if (n == 0) return 1.0;
+		if (null != (ret = cache.get(n))) return ret;
+		ret = 1.0;
+		for (int i = 1; i <= n; ++i) ret *= i;
+		cache.put(n, ret);
+		return ret;
 	}
 }

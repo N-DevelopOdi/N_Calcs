@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--type 5 - Механика-->
+<calcs_mechanics>
+    <calc
+        type = "5"
+        title = "Кинематика. Путь, время, скорость"
+        result = "S_v_t"
+        formula = "v*t_S/t_S/v"
+        text_about = "Путь.\nv - скорость\nt - время_Скорость"
+        image = "fmkpyt_fmkskorost_fmkvrema"
+    />
+    <calc
+        type = "5"
+        title = "Кинематика. Равномерное движение"
+        result = "x_x0_v_t"
+        formula = "x0+v*t_x-v*t_(x-x0)/t_(x-x0)/v"
+        text_about = "Конечная координата.\nx0 - начальная координата\nv - скорость\nt - время"
+        image = "fmkravnomernoex_fmkravnomernoex0_fmkravnomernoev_fmkravnomernoet"
+    />
+    <calc
+        type = "5"
+        title = "Кинематика. Равномерно ускоренное движение: ускорение"
+        result = "a_v_v0_t"
+        formula = "(v-v0)/t_a*t+v0_-a*t+v_(v/a)-(v0/a)"
+        text_about = "Конечная координата.\nx0 - начальная координата\nv - скорость\nt - время"
+        image = "fmkravnomernoeuscoreniea_fmkravnomernoeuscoreniev_fmkravnomernoeuscoreniev0_fmkravnomernoeuscoreniet"
+    />
+</calcs_mechanics>

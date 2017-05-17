@@ -89,7 +89,9 @@ public class CalcActivity extends AppCompatActivity
                 image.add(i,cursor.getString(imageIndex));
 
                 Log.e("mlog", "ID = " + cursor.getInt(idIndex) +
-                        " formula = " + cursor.getString(formulaIndex));
+                        " formula = " + cursor.getString(formulaIndex)+
+                        " formula = " + imageIndex+
+                        " image = " + cursor.getString(imageIndex));
             }
             while (cursor.moveToNext());
         }
@@ -147,10 +149,11 @@ public class CalcActivity extends AppCompatActivity
             ImageView imageView = new ImageView(this);
             imageView.setLayoutParams(lImageParams);
             imageView.setId(img_ids[i]);
-
-			String filename = "ploshadtreygolnika1";
-			Picasso.with(this).load(getResources().getIdentifier(image.get(i), "drawable", getPackageName())).into(imageView);
-            relativeLayout.addView(imageView);
+            if (!image.get(i).equals("Нет Фото"))
+            {
+                Picasso.with(this).load(getResources().getIdentifier(image.get(i), "drawable", getPackageName())).into(imageView);
+                relativeLayout.addView(imageView);
+            }
 
             //Описание калькулятора
             final TextView textView = new TextView(this);
@@ -267,7 +270,7 @@ public class CalcActivity extends AppCompatActivity
                             String[] formuls1 = formuls.toArray(new String[formuls.size()]);
                             Integer[] ids = id_formula.toArray(new Integer[id_formula.size()]);
                             int id = ids[number_el];
-                            Log.e("formuls1, id", formuls1[number_el] + "  "+ Integer.toString(id));
+//                            Log.e("formuls1, id", formuls1[number_el] + "  "+ Integer.toString(id));
 
                             // находим переменные
                             List<String> variable_ = new ArrayList<String>();
@@ -281,7 +284,7 @@ public class CalcActivity extends AppCompatActivity
 
                                 Collection<EditText> collection = hashMap.values();
                                 EditText[] values = collection.toArray(new EditText[k]);
-                                Log.e("type", Integer.toString(values[k].getInputType()));
+//                                Log.e("type", Integer.toString(values[k].getInputType()));
 
                                 // Меняем переменные на числа из ввода
                                 formuls1[number_el] = formuls1[number_el].replace(variable_.get(k), values[k].getText());
@@ -417,9 +420,8 @@ public class CalcActivity extends AppCompatActivity
      */
     private boolean isFormulas(String var)
     {
-        String[] formuls = {"sqrt", "sin", "cos", "tan", "PI"};
-        boolean b = Arrays.asList(formuls).contains(var);
-        return b;
+        String[] formuls = {"sqrt", "sin", "cos", "tan", "fac", "PI", "E"};
+        return  Arrays.asList(formuls).contains(var);
 
 
     }

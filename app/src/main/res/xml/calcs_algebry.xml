@@ -3,11 +3,19 @@
 <calcs_algebry>
     <calc
         type = "2"
+        title = "Корень"
+        result = "Результат"
+        formula = "sqrt(x)"
+        text_about = "Квадратный корень из x"
+        image = "Нет Фото"
+    />
+    <calc
+        type = "2"
         title = "Возведения числа в степень"
         result = "Результат"
         formula = "a^x"
         text_about = "Возведения числа a в степень x"
-        image = ""
+        image = "Нет Фото"
     />
     <calc
         type = "2"
@@ -15,7 +23,7 @@
         result = "Результат"
         formula = "E^x"
         text_about = "Возведения экспоненты в степень x"
-        image = ""
+        image = "Нет Фото"
     />
     <calc
         type = "2"
@@ -23,14 +31,14 @@
         result = "Результат"
         formula = "x/100*y_x/b*100"
         text_about = "Сколько составляют x% от y_Сколько % составляет x от y"
-        image = ""
+        image = "Нет Фото_Нет Фото"
     />
     <calc
         type = "2"
         title = "Процентное изменение"
         result = "Результат"
-        formula = "((y-x)/x)×100"
+        formula = "((y-x)/x)*100"
         text_about = "Сколько составляют x% от y_Сколько % составляет x от y"
-        image = ""
+        image = "Нет Фото_Нет Фото"
     />
 </calcs_algebry>
