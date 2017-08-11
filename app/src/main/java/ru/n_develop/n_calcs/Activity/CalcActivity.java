@@ -19,11 +19,11 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import ru.n_develop.n_calcs.Helper.DBHelper;
 import ru.n_develop.n_calcs.Helper.Parser.MatchParser;
@@ -40,7 +40,7 @@ public class CalcActivity extends AppCompatActivity
     LinearLayout llt;
 
     private List<Map<Integer, EditText>> editTextList = new ArrayList<Map<Integer, EditText>>();
-    HashMap<Integer, EditText> map;
+	TreeMap <Integer, EditText> map;
 
     private List<Integer> id_formula = new ArrayList<Integer>();
     private List<String> formuls = new ArrayList<String>();
@@ -200,7 +200,7 @@ public class CalcActivity extends AppCompatActivity
                     editTxt.setPadding(5, 0, 0, 10);
                     editTxt.setWidth(150);
 
-                    map = new HashMap<Integer, EditText>();
+                    map = new TreeMap <Integer, EditText>();
                     map.put(j, editTxt);
                     editTextList.add(i, map);
                     relativeLayout.addView(editTxt);
@@ -239,7 +239,7 @@ public class CalcActivity extends AppCompatActivity
                     editTxt.setPadding(5, 0, 0, 5);
                     editTxt.setWidth(150);
 
-                    map = new HashMap<Integer, EditText>();
+					map = new TreeMap <Integer, EditText>();
                     map.putAll(editTextList.get(i));
                     map.put(j, editTxt);
                     editTextList.add(i, map);
@@ -276,15 +276,14 @@ public class CalcActivity extends AppCompatActivity
                             List<String> variable_ = new ArrayList<String>();
                             variable_ = getVariable(formuls1[number_el]);
 
-                            Map<Integer, EditText> hashMap = editTextList.get(number_el);
+                            Map<Integer, EditText> treeMap = editTextList.get(number_el);
 
                             // берем то что ввели
-                            for (int k = 0; k < hashMap.size(); k++)
+                            for (int k = 0; k < treeMap.size(); k++)
                             {
 
-                                Collection<EditText> collection = hashMap.values();
+                                Collection<EditText> collection = treeMap.values();
                                 EditText[] values = collection.toArray(new EditText[k]);
-//                                Log.e("type", Integer.toString(values[k].getInputType()));
 
                                 // Меняем переменные на числа из ввода
                                 formuls1[number_el] = formuls1[number_el].replace(variable_.get(k), values[k].getText());
